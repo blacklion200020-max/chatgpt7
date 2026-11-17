@@ -1,830 +1,4606 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>استوديو الذكاء الاصطناعي المتقدم - Puter AI Studio</title>
-    <!-- خط القاهرة من Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- مكتبة Puter.js v2 -->
-    <script src="https://js.puter.com/v2/"></script>
-    <style>
-        :root {
-            --bg-dark: #090d16;
-            --bg-card: rgba(19, 28, 46, 0.88);
-            --primary: #6366f1;
-            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
-            --secondary-gradient: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
-            --text-light: #f8fafc;
-            --text-dim: #94a3b8;
-            --border-glass: rgba(255, 255, 255, 0.1);
-            --radius-lg: 18px;
-            --radius-md: 12px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Cairo', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+<title>استوديو الذكاء الاصطناعي - Puter AI Studio</title>
 
-        body {
-            background-color: var(--bg-dark);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.18) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.15) 0px, transparent 50%);
-            color: var(--text-light);
-            display: flex;
-            flex-direction: column;
-            height: 100dvh;
-            overflow: hidden;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://js.puter.com/v2/"></script>
 
-        header {
-            background: rgba(9, 13, 22, 0.9);
-            backdrop-filter: blur(16px);
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border-glass);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 20;
-            flex-shrink: 0;
-        }
+<style>
+:root{
+    --bg-dark:#090d16;
+    --bg-card:rgba(19,28,46,.88);
+    --primary:#6366f1;
+    --primary-gradient:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#ec4899 100%);
+    --secondary-gradient:linear-gradient(135deg,#0ea5e9 0%,#3b82f6 100%);
+    --success-gradient:linear-gradient(135deg,#10b981,#059669);
+    --danger-gradient:linear-gradient(135deg,#ef4444,#dc2626);
+    --text-light:#f8fafc;
+    --text-dim:#94a3b8;
+    --border-glass:rgba(255,255,255,.1);
+    --radius-lg:18px;
+    --radius-md:12px;
+}
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:'Cairo',sans-serif;
+    -webkit-tap-highlight-color:transparent;
+}
 
-        .brand-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 11px;
-            background: var(--primary-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
-        }
+body{
+    background-color:var(--bg-dark);
+    background-image:
+        radial-gradient(at 0% 0%,rgba(99,102,241,.18) 0,transparent 50%),
+        radial-gradient(at 100% 100%,rgba(236,72,153,.15) 0,transparent 50%);
+    color:var(--text-light);
+    display:flex;
+    flex-direction:column;
+    height:100dvh;
+    overflow:hidden;
+}
 
-        .brand-text h1 {
-            font-size: 1rem;
-            font-weight: 800;
-            color: #fff;
-            line-height: 1.2;
-        }
+button,select,textarea,input{
+    font-family:inherit;
+}
 
-        .brand-text span {
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            display: block;
-        }
+button{
+    -webkit-user-select:none;
+    user-select:none;
+}
 
-        .auth-btn {
-            background: var(--primary-gradient);
-            color: white;
-            border: none;
-            padding: 7px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+header{
+    background:rgba(9,13,22,.92);
+    backdrop-filter:blur(16px);
+    padding:12px 16px;
+    border-bottom:1px solid var(--border-glass);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    z-index:20;
+    flex-shrink:0;
+}
 
-        main {
-            flex: 1;
-            overflow: hidden;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
 
-        .tab-view {
-            display: none;
-            flex: 1;
-            flex-direction: column;
-            overflow-y: auto;
-            padding: 14px;
-            padding-bottom: 85px;
-            gap: 14px;
-        }
+.brand-icon{
+    width:38px;
+    height:38px;
+    border-radius:11px;
+    background:var(--primary-gradient);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.25rem;
+    box-shadow:0 4px 15px rgba(99,102,241,.4);
+}
 
-        .tab-view.active {
-            display: flex;
-        }
+.brand-text h1{
+    font-size:1rem;
+    font-weight:800;
+    color:#fff;
+    line-height:1.2;
+}
 
-        #chat-view.active {
-            overflow: hidden;
-            padding-bottom: 78px;
-        }
+.brand-text span{
+    font-size:.7rem;
+    color:var(--text-dim);
+    display:block;
+}
 
-        .glass-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-lg);
-            padding: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
+.auth-btn{
+    background:var(--primary-gradient);
+    color:white;
+    border:none;
+    padding:8px 14px;
+    border-radius:20px;
+    font-size:.8rem;
+    font-weight:700;
+    cursor:pointer;
+    box-shadow:0 4px 12px rgba(99,102,241,.35);
+    display:flex;
+    align-items:center;
+    gap:6px;
+    min-width:120px;
+    justify-content:center;
+    transition:.2s ease;
+}
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-glass);
-            padding-bottom: 10px;
-        }
+.auth-btn:hover{
+    transform:translateY(-1px);
+}
 
-        .card-title {
-            font-size: 1rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+.auth-btn:disabled{
+    opacity:.7;
+    cursor:wait;
+    transform:none;
+}
 
-        .badge {
-            font-size: 0.7rem;
-            padding: 3px 9px;
-            border-radius: 12px;
-            background: rgba(99, 102, 241, 0.2);
-            color: #a5b4fc;
-            border: 1px solid rgba(99, 102, 241, 0.3);
-        }
+.auth-btn.signed-in{
+    background:var(--success-gradient);
+}
 
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
+.api-keys-btn{
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:none;
+    min-width:auto;
+}
 
-        .control-label {
-            font-size: 0.82rem;
-            color: #cbd5e1;
-            font-weight: 600;
-        }
+.api-keys-btn:hover{
+    background:rgba(99,102,241,.18);
+}
 
-        .row-group {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
+main{
+    flex:1;
+    overflow:hidden;
+    position:relative;
+    display:flex;
+    flex-direction:column;
+}
 
-        select, input[type="text"], textarea {
-            background: rgba(15, 23, 42, 0.9);
-            color: var(--text-light);
-            border: 1px solid var(--border-glass);
-            padding: 11px 14px;
-            border-radius: var(--radius-md);
-            font-size: 0.88rem;
-            outline: none;
-            width: 100%;
-        }
+.tab-view{
+    display:none;
+    flex:1;
+    flex-direction:column;
+    overflow-y:auto;
+    padding:14px;
+    padding-bottom:85px;
+    gap:14px;
+}
 
-        select:focus, input:focus, textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-        }
+.tab-view.active{
+    display:flex;
+}
 
-        .custom-input {
-            display: none;
-            margin-top: 6px;
-            border-color: #8b5cf6;
-        }
+#chat-view.active{
+    overflow:hidden;
+    padding-bottom:78px;
+}
 
-        .btn-primary {
-            background: var(--primary-gradient);
-            color: white;
-            border: none;
-            padding: 13px 18px;
-            border-radius: var(--radius-md);
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
-        }
+.glass-card{
+    background:var(--bg-card);
+    backdrop-filter:blur(12px);
+    border:1px solid var(--border-glass);
+    border-radius:var(--radius-lg);
+    padding:16px;
+    box-shadow:0 8px 32px rgba(0,0,0,.25);
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
 
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--text-light);
-            border: 1px solid var(--border-glass);
-            padding: 9px 13px;
-            border-radius: var(--radius-md);
-            font-size: 0.78rem;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-        }
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid var(--border-glass);
+    padding-bottom:10px;
+    gap:8px;
+}
 
-        .switch-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(15, 23, 42, 0.6);
-            padding: 10px 14px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--border-glass);
-            font-size: 0.82rem;
-        }
+.card-title{
+    font-size:1rem;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
 
-        .switch-row input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            accent-color: #6366f1;
-            cursor: pointer;
-        }
+.badge{
+    font-size:.7rem;
+    padding:3px 9px;
+    border-radius:12px;
+    background:rgba(99,102,241,.2);
+    color:#a5b4fc;
+    border:1px solid rgba(99,102,241,.3);
+}
 
-        #chat-messages {
-            flex: 1;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding: 6px 2px;
-        }
+.control-group{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
 
-        .bubble {
-            max-width: 86%;
-            padding: 12px 16px;
-            border-radius: 18px;
-            font-size: 0.92rem;
-            line-height: 1.6;
-            word-wrap: break-word;
-            white-space: pre-wrap;
-        }
+.control-label{
+    font-size:.82rem;
+    color:#cbd5e1;
+    font-weight:600;
+}
 
-        .bubble.user {
-            background: var(--secondary-gradient);
-            color: white;
-            align-self: flex-start;
-            border-bottom-right-radius: 4px;
-        }
+.row-group{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
 
-        .bubble.ai {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
-            color: var(--text-light);
-            align-self: flex-end;
-            border-bottom-left-radius: 4px;
-        }
+select,
+input[type="text"],
+input[type="password"],
+textarea{
+    background:rgba(15,23,42,.9);
+    color:var(--text-light);
+    border:1px solid var(--border-glass);
+    padding:11px 14px;
+    border-radius:var(--radius-md);
+    font-size:.88rem;
+    outline:none;
+    width:100%;
+}
 
-        .bubble-meta {
-            font-size: 0.68rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 4px;
-            display: block;
-            font-weight: 700;
-        }
+select:focus,
+input:focus,
+textarea:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(99,102,241,.2);
+}
 
-        .chat-composer {
-            display: flex;
-            gap: 8px;
-            background: var(--bg-card);
-            padding: 8px;
-            border-radius: 16px;
-            border: 1px solid var(--border-glass);
-            align-items: center;
-            margin-top: 8px;
-        }
+.custom-input{
+    display:none;
+    margin-top:6px;
+    border-color:#8b5cf6;
+}
 
-        .chat-composer textarea {
-            border: none;
-            background: transparent;
-            padding: 6px 10px;
-            height: 42px;
-            resize: none;
-            flex: 1;
-        }
+.btn-primary{
+    background:var(--primary-gradient);
+    color:white;
+    border:none;
+    padding:13px 18px;
+    border-radius:var(--radius-md);
+    font-size:.95rem;
+    font-weight:700;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    box-shadow:0 6px 20px rgba(99,102,241,.35);
+}
 
-        .media-showcase {
-            background: rgba(9, 13, 22, 0.75);
-            border: 1px dashed rgba(255, 255, 255, 0.18);
-            border-radius: var(--radius-lg);
-            min-height: 220px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 16px;
-            text-align: center;
-            gap: 12px;
-        }
+.btn-primary:disabled{
+    opacity:.65;
+    cursor:wait;
+}
 
-        .media-showcase.has-content {
-            border-style: solid;
-            border-color: rgba(99, 102, 241, 0.4);
-            background: rgba(15, 23, 42, 0.95);
-        }
+.btn-secondary{
+    background:rgba(255,255,255,.08);
+    color:var(--text-light);
+    border:1px solid var(--border-glass);
+    padding:9px 13px;
+    border-radius:var(--radius-md);
+    font-size:.78rem;
+    font-weight:600;
+    cursor:pointer;
+    white-space:nowrap;
+}
 
-        .media-showcase img, .media-showcase video {
-            width: 100%;
-            max-height: 380px;
-            object-fit: contain;
-            border-radius: var(--radius-md);
-        }
+.switch-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:rgba(15,23,42,.6);
+    padding:10px 14px;
+    border-radius:var(--radius-md);
+    border:1px solid var(--border-glass);
+    font-size:.82rem;
+}
 
-        .media-actions {
-            display: flex;
-            gap: 10px;
-            width: 100%;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+.switch-row input[type="checkbox"]{
+    width:18px;
+    height:18px;
+    accent-color:#6366f1;
+    cursor:pointer;
+}
 
-        .audio-player-card {
-            width: 100%;
-            background: rgba(30, 41, 59, 0.9);
-            border: 1px solid rgba(99, 102, 241, 0.35);
-            border-radius: var(--radius-md);
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-        }
+#chat-messages{
+    flex:1;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    padding:6px 2px;
+}
 
-        audio {
-            width: 100%;
-            height: 42px;
-        }
+.bubble{
+    max-width:86%;
+    padding:12px 16px;
+    border-radius:18px;
+    font-size:.92rem;
+    line-height:1.6;
+    word-wrap:break-word;
+    white-space:pre-wrap;
+}
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
-        }
+.bubble.user{
+    background:var(--secondary-gradient);
+    color:white;
+    align-self:flex-start;
+    border-bottom-right-radius:4px;
+}
 
-        .gallery-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-md);
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+.bubble.ai{
+    background:var(--bg-card);
+    border:1px solid var(--border-glass);
+    color:var(--text-light);
+    align-self:flex-end;
+    border-bottom-left-radius:4px;
+}
 
-        .gallery-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.78rem;
-            color: var(--text-dim);
-        }
+.bubble-meta{
+    font-size:.68rem;
+    color:rgba(255,255,255,.6);
+    margin-bottom:4px;
+    display:block;
+    font-weight:700;
+}
 
-        .spinner {
-            width: 36px;
-            height: 36px;
-            border: 4px solid rgba(99, 102, 241, 0.2);
-            border-top-color: #6366f1;
-            border-radius: 50%;
-            animation: spin 0.9s linear infinite;
-        }
+.chat-composer{
+    display:flex;
+    gap:8px;
+    background:var(--bg-card);
+    padding:8px;
+    border-radius:16px;
+    border:1px solid var(--border-glass);
+    align-items:center;
+    margin-top:8px;
+}
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+.chat-composer textarea{
+    border:none;
+    background:transparent;
+    padding:6px 10px;
+    height:42px;
+    resize:none;
+    flex:1;
+}
 
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(9, 13, 22, 0.92);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border-glass);
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 6px 12px;
-            z-index: 30;
-        }
+.media-showcase{
+    background:rgba(9,13,22,.75);
+    border:1px dashed rgba(255,255,255,.18);
+    border-radius:var(--radius-lg);
+    min-height:220px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:16px;
+    text-align:center;
+    gap:12px;
+}
 
-        .nav-item {
-            background: none;
-            border: none;
-            color: var(--text-dim);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3px;
-            font-size: 0.73rem;
-            font-weight: 700;
-            cursor: pointer;
-            padding: 6px 12px;
-            border-radius: 14px;
-        }
+.media-showcase.has-content{
+    border-style:solid;
+    border-color:rgba(99,102,241,.4);
+    background:rgba(15,23,42,.95);
+}
 
-        .nav-item.active {
-            color: #fff;
-            background: rgba(99, 102, 241, 0.18);
-        }
+.media-showcase img,
+.media-showcase video{
+    width:100%;
+    max-height:380px;
+    object-fit:contain;
+    border-radius:var(--radius-md);
+}
 
-        .count-badge {
-            position: absolute;
-            top: 2px;
-            left: 8px;
-            background: #ec4899;
-            color: white;
-            font-size: 0.65rem;
-            padding: 1px 5px;
-            border-radius: 10px;
-            display: none;
-        }
-    </style>
+.media-actions{
+    display:flex;
+    gap:10px;
+    width:100%;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.audio-player-card{
+    width:100%;
+    background:rgba(30,41,59,.9);
+    border:1px solid rgba(99,102,241,.35);
+    border-radius:var(--radius-md);
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+}
+
+audio{
+    width:100%;
+    height:42px;
+}
+
+.gallery-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+}
+
+.gallery-item{
+    background:var(--bg-card);
+    border:1px solid var(--border-glass);
+    border-radius:var(--radius-md);
+    padding:12px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.gallery-item-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:.78rem;
+    color:var(--text-dim);
+}
+
+.spinner{
+    width:36px;
+    height:36px;
+    border:4px solid rgba(99,102,241,.2);
+    border-top-color:#6366f1;
+    border-radius:50%;
+    animation:spin .9s linear infinite;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg);}
+}
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:rgba(9,13,22,.92);
+    backdrop-filter:blur(20px);
+    border-top:1px solid var(--border-glass);
+    display:flex;
+    justify-content:space-around;
+    padding:8px 4px 12px;
+    z-index:30;
+    overflow-x:auto;
+}
+
+.nav-item{
+    position:relative;
+    background:none;
+    border:none;
+    color:var(--text-dim);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    font-size:.67rem;
+    font-weight:700;
+    cursor:pointer;
+    padding:6px 9px;
+    border-radius:14px;
+    min-width:60px;
+}
+
+.nav-item.active{
+    color:#fff;
+    background:rgba(99,102,241,.18);
+}
+
+.count-badge{
+    position:absolute;
+    top:2px;
+    left:8px;
+    background:#ec4899;
+    color:white;
+    font-size:.65rem;
+    padding:1px 5px;
+    border-radius:10px;
+    display:none;
+}
+
+.status-box{
+    display:none;
+    padding:10px 14px;
+    border-radius:12px;
+    font-size:.78rem;
+    line-height:1.6;
+    margin:10px 14px 0;
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.status-box.show{
+    display:block;
+}
+
+.status-box.info{
+    background:rgba(59,130,246,.12);
+    color:#bfdbfe;
+}
+
+.status-box.success{
+    background:rgba(16,185,129,.12);
+    color:#a7f3d0;
+}
+
+.status-box.error{
+    background:rgba(239,68,68,.12);
+    color:#fecaca;
+}
+
+.model-info{
+    background:rgba(99,102,241,.08);
+    border:1px solid rgba(99,102,241,.18);
+    padding:10px 12px;
+    border-radius:12px;
+    font-size:.73rem;
+    color:#cbd5e1;
+    line-height:1.7;
+}
+
+.story-output{
+    white-space:pre-wrap;
+    line-height:1.8;
+    text-align:right;
+    width:100%;
+    color:#e2e8f0;
+}
+
+.scene-card{
+    width:100%;
+    background:rgba(15,23,42,.82);
+    border:1px solid var(--border-glass);
+    border-radius:14px;
+    padding:12px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    text-align:right;
+}
+
+.scene-title{
+    color:#a5b4fc;
+    font-weight:800;
+}
+
+.scene-prompt{
+    font-size:.8rem;
+    color:#cbd5e1;
+    line-height:1.7;
+}
+
+.scene-actions{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+}
+
+.small-note{
+    color:var(--text-dim);
+    font-size:.7rem;
+    line-height:1.7;
+}
+
+/* API MODAL */
+
+#api-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(10px);
+    padding:18px;
+    overflow-y:auto;
+}
+
+.api-modal-card{
+    max-width:520px;
+    margin:30px auto;
+    position:relative;
+}
+
+#api-keys-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.api-key-item{
+    background:rgba(15,23,42,.8);
+    border:1px solid var(--border-glass);
+    border-radius:var(--radius-md);
+    padding:12px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.api-key-item-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
+}
+
+.api-key-name{
+    font-weight:700;
+    color:#fff;
+}
+
+.api-key-provider{
+    font-size:.72rem;
+    color:var(--text-dim);
+}
+
+.api-key-actions{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+}
+
+.api-key-active{
+    color:#86efac;
+    font-size:.72rem;
+}
+
+.api-key-inactive{
+    color:#fca5a5;
+    font-size:.72rem;
+}
+
+.security-note{
+    background:rgba(245,158,11,.1);
+    border:1px solid rgba(245,158,11,.25);
+    color:#fde68a;
+    padding:10px;
+    border-radius:12px;
+    font-size:.75rem;
+    line-height:1.7;
+}
+
+@media(max-width:600px){
+
+    header{
+        padding:10px;
+    }
+
+    .row-group{
+        flex-wrap:wrap;
+    }
+
+    .row-group select{
+        flex:1 1 100%;
+    }
+
+    .row-group .btn-secondary{
+        flex:1;
+    }
+
+    .brand-text h1{
+        font-size:.9rem;
+    }
+
+    .brand-text span{
+        display:none;
+    }
+
+    .auth-btn{
+        min-width:105px;
+        padding-inline:10px;
+    }
+
+    .api-keys-btn span:last-child{
+        display:none;
+    }
+
+    .nav-item{
+        min-width:57px;
+        padding-inline:6px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <header>
-        <div class="brand">
-            <div class="brand-icon">✨</div>
-            <div class="brand-text">
-                <h1>استوديو Puter AI</h1>
-                <span>محادثة • صور • فيديو • صوتيات</span>
-            </div>
+<header>
+
+    <div class="brand">
+
+        <div class="brand-icon">✨</div>
+
+        <div class="brand-text">
+            <h1>استوديو Puter AI</h1>
+            <span>محادثة • صور • فيديو • صوتيات • قصص</span>
         </div>
-        <button id="auth-btn" class="auth-btn" onclick="handleAuth()">
-            <span>🔑</span> <span id="auth-text">تسجيل الدخول</span>
+
+    </div>
+
+    <div style="display:flex;align-items:center;gap:8px;">
+
+        <button id="api-keys-btn"
+                class="auth-btn api-keys-btn"
+                type="button">
+            <span>🔑</span>
+            <span>مفاتيح API</span>
         </button>
-    </header>
 
-    <main>
-        <!-- 1. المحادثة الذكية -->
-        <section id="chat-view" class="tab-view active">
-            <div class="glass-card" style="padding: 10px 12px; gap: 8px; flex-shrink: 0;">
-                <div class="row-group">
-                    <select id="chat-model" onchange="toggleCustom('chat-model', 'chat-custom')">
-                        <option value="gpt-4o">🧠 OpenAI GPT-4o</option>
-                        <option value="gpt-4o-mini">🧠 OpenAI GPT-4o Mini</option>
-                        <option value="claude-3-5-sonnet">✨ Claude 3.5 Sonnet</option>
-                        <option value="gemini-2.0-flash">🚀 Google Gemini 2.0 Flash</option>
-                        <option value="deepseek-chat">🔍 DeepSeek V3</option>
-                        <option value="grok-2">🦊 xAI Grok-2</option>
-                        <option value="custom">✍️ إدخال اسم نموذج مخصص...</option>
-                    </select>
-                    <button class="btn-secondary" onclick="fetchAllModels()">🔄 جلب الكل</button>
-                    <button class="btn-secondary" onclick="clearChat()">🗑️ مسح</button>
-                </div>
-                <input type="text" id="chat-custom" class="custom-input" placeholder="اكتب معرف النموذج (مثال: gpt-4, llama-3)...">
+        <button id="auth-btn"
+                class="auth-btn"
+                type="button">
+
+            <span id="auth-icon">🔑</span>
+            <span id="auth-text">تسجيل الدخول</span>
+
+        </button>
+
+    </div>
+
+</header>
+
+<div id="status-box" class="status-box"></div>
+
+<main>
+
+<!-- CHAT -->
+
+<section id="chat-view" class="tab-view active">
+
+    <div class="glass-card"
+         style="padding:10px 12px;gap:8px;flex-shrink:0;">
+
+        <div class="row-group">
+
+            <select id="chat-model">
+
+                <option value="gpt-4o">
+                    🧠 OpenAI GPT-4o
+                </option>
+
+                <option value="gpt-4o-mini">
+                    🧠 OpenAI GPT-4o Mini
+                </option>
+
+                <option value="claude-3-5-sonnet">
+                    ✨ Claude
+                </option>
+
+                <option value="gemini-2.0-flash">
+                    🚀 Gemini
+                </option>
+
+                <option value="deepseek-chat">
+                    🔍 DeepSeek
+                </option>
+
+                <option value="custom">
+                    ✍️ إدخال نموذج مخصص
+                </option>
+
+            </select>
+
+            <button id="models-btn"
+                    class="btn-secondary"
+                    type="button">
+                🔄 جلب الكل
+            </button>
+
+            <button id="clear-chat-btn"
+                    class="btn-secondary"
+                    type="button">
+                🗑️ مسح
+            </button>
+
+        </div>
+
+        <input id="chat-custom"
+               type="text"
+               class="custom-input"
+               placeholder="اكتب معرف النموذج...">
+
+    </div>
+
+    <div id="chat-messages">
+
+        <div class="bubble ai">
+
+            <span class="bubble-meta">
+                🤖 المساعد الذكي
+            </span>
+
+            أهلاً بك! سجّل الدخول بحساب Puter ثم اختر النموذج وابدأ الدردشة.
+
+        </div>
+
+    </div>
+
+    <div class="chat-composer">
+
+        <textarea id="chat-input"
+                  placeholder="اكتب رسالتك هنا..."></textarea>
+
+        <button id="send-btn"
+                class="btn-primary"
+                type="button"
+                style="padding:10px 16px;">
+            إرسال ➤
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- IMAGE -->
+
+<section id="image-view" class="tab-view">
+
+    <div class="glass-card">
+
+        <div class="card-header">
+
+            <div class="card-title">
+                🎨 استوديو تصميم الصور
             </div>
 
-            <div id="chat-messages">
-                <div class="bubble ai">
-                    <span class="bubble-meta">🤖 المساعد الذكي</span>
-                    أهلاً بك! تم تصحيح وتأمين كافة الأزرار. اختر النموذج وابدأ الدردشة أو جرب الأقسام الأخرى.
-                </div>
+            <span class="badge">
+                Text-to-Image
+            </span>
+
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                نموذج الرسم:
+            </label>
+
+            <select id="img-model">
+
+                <option value="gpt-image-2.6-flare">
+                    🎨 GPT Image 2.6 Flare
+                </option>
+
+                <option value="gpt-image-2.6-sunburst">
+                    🌟 GPT Image 2.6 Sunburst
+                </option>
+
+                <option value="gemini-3.1-flash-image">
+                    💎 Gemini 3.1 Flash Image
+                </option>
+
+                <option value="gemini-nano-banana-2.1">
+                    🍌 Nano Banana 2.1
+                </option>
+
+                <option value="grok-imagine-image">
+                    🧠 Grok Imagine
+                </option>
+
+                <option value="@cf/black-forest-labs/flux-1-schnell">
+                    ⚡ FLUX.1 Schnell
+                </option>
+
+                <option value="stabilityai/stable-diffusion-xl-base-1.0">
+                    🌌 Stable Diffusion XL
+                </option>
+
+                <option value="custom">
+                    ✍️ نموذج مخصص
+                </option>
+
+            </select>
+
+            <input id="img-custom"
+                   type="text"
+                   class="custom-input"
+                   placeholder="أدخل معرف نموذج الصور...">
+
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                وصف الصورة:
+            </label>
+
+            <textarea id="img-prompt"
+                      rows="3"
+                      placeholder="اكتب وصف الصورة..."></textarea>
+
+        </div>
+
+        <div class="switch-row">
+
+            <span>⚡ وضع الاختبار</span>
+
+            <input type="checkbox"
+                   id="img-test">
+
+        </div>
+
+        <button id="img-btn"
+                class="btn-primary"
+                type="button">
+            ✨ توليد الصورة الآن
+        </button>
+
+    </div>
+
+    <div id="img-showcase"
+         class="media-showcase">
+
+        <div style="font-size:2.2rem;opacity:.5;">
+            🖼️
+        </div>
+
+        <p style="font-size:.85rem;color:var(--text-dim);">
+            ستظهر الصورة هنا
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- VIDEO -->
+
+<section id="video-view" class="tab-view">
+
+    <div class="glass-card">
+
+        <div class="card-header">
+
+            <div class="card-title">
+                🎬 استوديو صناعة الفيديو
             </div>
 
-            <div class="chat-composer">
-                <textarea id="chat-input" placeholder="اكتب رسالتك هنا..."></textarea>
-                <button id="send-btn" class="btn-primary" style="padding: 10px 16px;" onclick="sendChat()">إرسال ➤</button>
-            </div>
-        </section>
+            <span class="badge">
+                Text-to-Video
+            </span>
 
-        <!-- 2. استوديو الصور -->
-        <section id="image-view" class="tab-view">
-            <div class="glass-card">
-                <div class="card-header">
-                    <div class="card-title">🎨 استوديو تصميم الصور</div>
-                    <span class="badge">Text-to-Image</span>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">نموذج الرسم:</label>
-                    <select id="img-model" onchange="toggleCustom('img-model', 'img-custom')">
-                        <option value="dall-e-3">🎨 DALL-E 3</option>
-                        <option value="black-forest-labs/FLUX.1-schnell">⚡ FLUX.1 Schnell</option>
-                        <option value="stabilityai/stable-diffusion-xl-base-1.0">🌌 Stable Diffusion XL</option>
-                        <option value="custom">✍️ نموذج مخصص...</option>
-                    </select>
-                    <input type="text" id="img-custom" class="custom-input" placeholder="أدخل معرف نموذج الصور...">
-                </div>
-                <div class="control-group">
-                    <label class="control-label">وصف الصورة (Prompt):</label>
-                    <textarea id="img-prompt" rows="3" placeholder="وصف الصورة بالإنجليزية أو العربية..."></textarea>
-                </div>
-                <div class="switch-row">
-                    <span>⚡ وضع التجربة السريع (بدون خصم رصيد)</span>
-                    <input type="checkbox" id="img-test">
-                </div>
-                <button id="img-btn" class="btn-primary" onclick="createImage()">✨ توليد الصورة الآن</button>
-            </div>
-            <div id="img-showcase" class="media-showcase">
-                <div style="font-size: 2.2rem; opacity: 0.5;">🖼️</div>
-                <p style="font-size: 0.85rem; color: var(--text-dim);">ستظهر الصورة المولدة هنا مع زر التحميل</p>
-            </div>
-        </section>
+        </div>
 
-        <!-- 3. استوديو الفيديو -->
-        <section id="video-view" class="tab-view">
-            <div class="glass-card">
-                <div class="card-header">
-                    <div class="card-title">🎬 استوديو صناعة الفيديو</div>
-                    <span class="badge">Text-to-Video</span>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">نموذج الفيديو:</label>
-                    <select id="vid-model" onchange="toggleCustom('vid-model', 'vid-custom')">
-                        <option value="default">⚡ محرك Puter الافتراضي</option>
-                        <option value="wan-2.1">🎥 Wan 2.1 Video</option>
-                        <option value="kling-v1">🎞️ Kling AI Video</option>
-                        <option value="custom">✍️ نموذج مخصص...</option>
-                    </select>
-                    <input type="text" id="vid-custom" class="custom-input" placeholder="أدخل نموذج الفيديو...">
-                </div>
-                <div class="control-group">
-                    <label class="control-label">وصف المشهد (Prompt):</label>
-                    <textarea id="vid-prompt" rows="3" placeholder="وصف مشهد الفيديو المتحرك..."></textarea>
-                </div>
-                <div class="switch-row">
-                    <span>⚡ وضع التجربة المجاني (Test Mode)</span>
-                    <input type="checkbox" id="vid-test" checked>
-                </div>
-                <button id="vid-btn" class="btn-primary" onclick="createVideo()">🎥 إنتاج الفيديو الآن</button>
-            </div>
-            <div id="vid-showcase" class="media-showcase">
-                <div style="font-size: 2.2rem; opacity: 0.5;">🎞️</div>
-                <p style="font-size: 0.85rem; color: var(--text-dim);">سيظهر مشغل الفيديو هنا بعد انتهاء المعالجة</p>
-            </div>
-        </section>
+        <div class="model-info">
+            🎥 القائمة تحتوي على نماذج فيديو موثقة في Puter، ومنها
+            Google Veo 3.1 وVeo 3.1 Lite وSeedance وKling وMiniMax وWan.
+            اختيار Veo هنا لا يحتاج إلى وضع مفتاح Google داخل الكود.
+        </div>
 
-        <!-- 4. استوديو الصوتيات -->
-        <section id="audio-view" class="tab-view">
-            <div class="glass-card">
-                <div class="card-header">
-                    <div class="card-title">🔊 استوديو التعليق الصوتي</div>
-                    <span class="badge">Text-to-Speech</span>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">محرك ونموذج الصوت:</label>
-                    <select id="tts-model" onchange="toggleCustom('tts-model', 'tts-custom')">
-                        <option value="gpt-4o-mini-tts">🧠 OpenAI GPT-4o Mini TTS</option>
-                        <option value="tts-1-hd">🎧 OpenAI TTS-1 HD</option>
-                        <option value="elevenlabs">✨ ElevenLabs</option>
-                        <option value="custom">✍️ نموذج مخصص...</option>
-                    </select>
-                    <input type="text" id="tts-custom" class="custom-input" placeholder="أدخل نموذج الصوت...">
-                </div>
-                <div class="control-group">
-                    <label class="control-label">شخصية الصوت:</label>
-                    <select id="tts-voice">
-                        <option value="alloy">👤 Alloy (محايد)</option>
-                        <option value="coral">👩 Coral (نسائي دافئ)</option>
-                        <option value="echo">👨 Echo (رجالي هادئ)</option>
-                        <option value="onyx">🤵 Onyx (رجالي فخم عميق)</option>
-                        <option value="shimmer">✨ Shimmer (نسائي ناعم)</option>
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">اللغة:</label>
-                    <select id="tts-lang">
-                        <option value="ar-SA">🇸🇦 العربية</option>
-                        <option value="en-US">🇺🇸 الإنجليزية</option>
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label class="control-label">النص المراد نطقه:</label>
-                    <textarea id="tts-input" rows="3" placeholder="اكتب النص هنا..."></textarea>
-                </div>
-                <button id="tts-btn" class="btn-primary" onclick="createAudio()">🔊 توليد وتشغيل الصوت</button>
-            </div>
-            <div id="tts-showcase" class="media-showcase" style="min-height: 150px;">
-                <div style="font-size: 2rem; opacity: 0.5;">🎧</div>
-                <p style="font-size: 0.85rem; color: var(--text-dim);">سيظهر مشغل الصوت هنا فور التوليد</p>
-            </div>
-        </section>
+        <div class="control-group">
 
-        <!-- 5. المعرض الشامل -->
-        <section id="gallery-view" class="tab-view">
-            <div class="glass-card" style="padding: 12px 16px;">
-                <div class="card-header" style="border:none; padding:0;">
-                    <div class="card-title">🗂️ معرض إبداعاتك</div>
-                    <button class="btn-secondary" onclick="clearGallery()">مسح السجل</button>
-                </div>
-            </div>
-            <div id="gallery-container" class="gallery-grid">
-                <div class="media-showcase">
-                    <div style="font-size: 2rem; opacity: 0.5;">✨</div>
-                    <p style="font-size: 0.85rem; color: var(--text-dim);">كل ما تولده من صور وفيديوهات وأصوات سيظهر هنا تلقائياً!</p>
-                </div>
-            </div>
-        </section>
-    </main>
+            <label class="control-label">
+                نموذج الفيديو:
+            </label>
 
-    <nav class="bottom-nav">
-        <button class="nav-item active" onclick="openView('chat-view', this)"><span>💬</span><span>المحادثة</span></button>
-        <button class="nav-item" onclick="openView('image-view', this)"><span>🎨</span><span>الصور</span></button>
-        <button class="nav-item" onclick="openView('video-view', this)"><span>🎬</span><span>الفيديو</span></button>
-        <button class="nav-item" onclick="openView('audio-view', this)"><span>🔊</span><span>الصوتيات</span></button>
-        <button class="nav-item" onclick="openView('gallery-view', this)"><span id="gallery-badge" class="count-badge">0</span><span>🗂️</span><span>المعرض</span></button>
-    </nav><script>
-        let chatHistory = [];
-        let galleryCount = 0;
+            <select id="vid-model">
 
-        function openView(viewId, btnEl) {
-            document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-            document.getElementById(viewId).classList.add('active');
-            btnEl.classList.add('active');
+                <option value="togetherai:wan-ai/wan2.7-t2v">
+                    ⚡ Wan 2.7 - Together AI
+                </option>
+
+                <option value="togetherai:google/veo-3.1">
+                    💎 Google Veo 3.1
+                </option>
+
+                <option value="togetherai:google/veo-3.1-lite">
+                    💎 Google Veo 3.1 Lite
+                </option>
+
+                <option value="bytedance/seedance-2.5">
+                    🌟 Seedance 2.5
+                </option>
+
+                <option value="bytedance/seedance-2.0">
+                    🎞️ Seedance 2.0
+                </option>
+
+                <option value="bytedance/seedance-1.0-pro">
+                    🎬 Seedance 1.0 Pro
+                </option>
+
+                <option value="bytedance/seedance-1.0-lite">
+                    🎬 Seedance 1.0 Lite
+                </option>
+
+                <option value="kling-4.0">
+                    🔥 Kling 4.0
+                </option>
+
+                <option value="kling-4.0-flash">
+                    ⚡ Kling 4.0 Flash
+                </option>
+
+                <option value="kling-3.0">
+                    🎥 Kling 3.0
+                </option>
+
+                <option value="kling-3.0-omni">
+                    🧠 Kling 3.0 Omni
+                </option>
+
+                <option value="kling-o1">
+                    🔧 Kling O1
+                </option>
+
+                <option value="minimax-h3">
+                    🚀 MiniMax H3
+                </option>
+
+                <option value="minimax-h3-highspeed">
+                    ⚡ MiniMax H3 High Speed
+                </option>
+
+                <option value="minimax-hailuo-2.3">
+                    🎞️ MiniMax Hailuo 2.3
+                </option>
+
+                <option value="pixverse/pixverse-v5">
+                    🎨 PixVerse V5
+                </option>
+
+                <option value="custom">
+                    ✍️ نموذج مخصص
+                </option>
+
+            </select>
+
+            <input id="vid-custom"
+                   type="text"
+                   class="custom-input"
+                   placeholder="أدخل معرف نموذج الفيديو...">
+
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                مدة الفيديو:
+            </label>
+
+            <select id="vid-seconds">
+
+                <option value="">
+                    تلقائي حسب النموذج
+                </option>
+
+                <option value="4">
+                    4 ثوانٍ
+                </option>
+
+                <option value="5">
+                    5 ثوانٍ
+                </option>
+
+                <option value="6">
+                    6 ثوانٍ
+                </option>
+
+                <option value="8">
+                    8 ثوانٍ
+                </option>
+
+                <option value="10">
+                    10 ثوانٍ
+                </option>
+
+                <option value="15">
+                    15 ثانية
+                </option>
+
+                <option value="30">
+                    30 ثانية
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                دقة الفيديو:
+            </label>
+
+            <select id="vid-size">
+
+                <option value="">
+                    تلقائي حسب النموذج
+                </option>
+
+                <option value="480p">
+                    480p
+                </option>
+
+                <option value="720p">
+                    720p
+                </option>
+
+                <option value="1080p">
+                    1080p
+                </option>
+
+                <option value="4k">
+                    4K
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                وصف المشهد:
+            </label>
+
+            <textarea id="vid-prompt"
+                      rows="4"
+                      placeholder="اكتب وصف الفيديو، الحركة، الكاميرا، الإضاءة والأسلوب..."></textarea>
+
+        </div>
+
+        <div class="switch-row">
+
+            <span>🔊 إنشاء صوت مع الفيديو عندما يدعم النموذج</span>
+
+            <input type="checkbox"
+                   id="vid-audio"
+                   checked>
+
+        </div>
+
+        <div class="switch-row">
+
+            <span>⚡ وضع الاختبار</span>
+
+            <input type="checkbox"
+                   id="vid-test"
+                   checked>
+
+        </div>
+
+        <button id="vid-btn"
+                class="btn-primary"
+                type="button">
+            🎥 إنتاج الفيديو الآن
+        </button>
+
+    </div>
+
+    <div id="vid-showcase"
+         class="media-showcase">
+
+        <div style="font-size:2.2rem;opacity:.5;">
+            🎞️
+        </div>
+
+        <p style="font-size:.85rem;color:var(--text-dim);">
+            سيظهر الفيديو هنا
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- AUDIO -->
+
+<section id="audio-view" class="tab-view">
+
+    <div class="glass-card">
+
+        <div class="card-header">
+
+            <div class="card-title">
+                🔊 استوديو التعليق الصوتي
+            </div>
+
+            <span class="badge">
+                Text-to-Speech
+            </span>
+
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                نموذج الصوت:
+            </label>
+
+            <select id="tts-model">
+
+                <option value="gpt-4o-mini-tts">
+                    🧠 OpenAI GPT-4o Mini TTS
+                </option>
+
+                <option value="tts-1">
+                    🎧 OpenAI TTS-1
+                </option>
+
+                <option value="tts-1-hd">
+                    🎧 OpenAI TTS-1 HD
+                </option>
+
+                <option value="eleven_multilingual_v2">
+                    ✨ ElevenLabs Multilingual
+                </option>
+
+                <option value="custom">
+                    ✍️ نموذج مخصص
+                </option>
+
+            </select>
+
+            <input id="tts-custom"
+                   type="text"
+                   class="custom-input"
+                   placeholder="أدخل نموذج الصوت...">
+
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                شخصية الصوت:
+            </label>
+
+            <select id="tts-voice">
+
+                <option value="alloy">
+                    👤 Alloy
+                </option>
+
+                <option value="ash">
+                    👤 Ash
+                </option>
+
+                <option value="coral">
+                    👩 Coral
+                </option>
+
+                <option value="echo">
+                    👨 Echo
+                </option>
+
+                <option value="fable">
+                    🎭 Fable
+                </option>
+
+                <option value="nova">
+                    👩 Nova
+                </option>
+
+                <option value="onyx">
+                    🤵 Onyx
+                </option>
+
+                <option value="sage">
+                    🧑 Sage
+                </option>
+
+                <option value="shimmer">
+                    ✨ Shimmer
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                النص:
+            </label>
+
+            <textarea id="tts-input"
+                      rows="3"
+                      maxlength="3000"
+                      placeholder="اكتب النص هنا..."></textarea>
+
+        </div>
+
+        <button id="tts-btn"
+                class="btn-primary"
+                type="button">
+            🔊 توليد وتشغيل الصوت
+        </button>
+
+    </div>
+
+    <div id="tts-showcase"
+         class="media-showcase"
+         style="min-height:150px;">
+
+        <div style="font-size:2rem;opacity:.5;">
+            🎧
+        </div>
+
+        <p style="font-size:.85rem;color:var(--text-dim);">
+            سيظهر الصوت هنا
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- STORY / SCRIPT -->
+
+<section id="story-view" class="tab-view">
+
+    <div class="glass-card">
+
+        <div class="card-header">
+
+            <div class="card-title">
+                📝 استوديو القصص والسكريبت
+            </div>
+
+            <span class="badge">
+                Story • Script • Scenes
+            </span>
+
+        </div>
+
+        <div class="model-info">
+            اكتب الفكرة فقط، وسيقوم المساعد ببناء قصة منظمة ثم تقسيمها
+            إلى مشاهد قابلة للتحويل إلى Prompts للفيديو.
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                فكرة القصة:
+            </label>
+
+            <textarea id="story-idea"
+                      rows="4"
+                      placeholder="مثال: قصة قصيرة عن رحلة استكشافية في مدينة مستقبلية..."></textarea>
+
+        </div>
+
+        <div class="row-group">
+
+            <div class="control-group" style="flex:1;">
+
+                <label class="control-label">
+                    النوع:
+                </label>
+
+                <select id="story-genre">
+
+                    <option>مغامرة</option>
+                    <option>خيال علمي</option>
+                    <option>فانتازيا</option>
+                    <option>دراما</option>
+                    <option>كوميديا</option>
+                    <option>غموض</option>
+                    <option>تعليمي</option>
+                    <option>إعلاني</option>
+                    <option>وثائقي</option>
+
+                </select>
+
+            </div>
+
+            <div class="control-group" style="flex:1;">
+
+                <label class="control-label">
+                    المدة:
+                </label>
+
+                <select id="story-duration">
+
+                    <option value="30">30 ثانية</option>
+                    <option value="60">60 ثانية</option>
+                    <option value="90">90 ثانية</option>
+                    <option value="120">دقيقتان</option>
+                    <option value="180">3 دقائق</option>
+                    <option value="300">5 دقائق</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="row-group">
+
+            <div class="control-group" style="flex:1;">
+
+                <label class="control-label">
+                    عدد المشاهد:
+                </label>
+
+                <select id="story-scenes">
+
+                    <option value="3">3 مشاهد</option>
+                    <option value="5" selected>5 مشاهد</option>
+                    <option value="7">7 مشاهد</option>
+                    <option value="10">10 مشاهد</option>
+                    <option value="12">12 مشهداً</option>
+
+                </select>
+
+            </div>
+
+            <div class="control-group" style="flex:1;">
+
+                <label class="control-label">
+                    الأسلوب البصري:
+                </label>
+
+                <select id="story-style">
+
+                    <option>سينمائي واقعي</option>
+                    <option>أنيميشن</option>
+                    <option>فيلم قصير</option>
+                    <option>وثائقي</option>
+                    <option>إعلاني فاخر</option>
+                    <option>خيالي ملحمي</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                الشخصيات والمعلومات الإضافية:
+            </label>
+
+            <textarea id="story-characters"
+                      rows="3"
+                      placeholder="اختياري: أسماء الشخصيات، أعمارها التقريبية، الملابس، البيئة، وأي تفاصيل تريد الحفاظ عليها بين المشاهد..."></textarea>
+
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                نموذج الكتابة:
+            </label>
+
+            <select id="story-model">
+
+                <option value="gpt-4o-mini">
+                    GPT-4o Mini
+                </option>
+
+                <option value="gpt-4o">
+                    GPT-4o
+                </option>
+
+                <option value="gemini-2.0-flash">
+                    Gemini
+                </option>
+
+                <option value="custom">
+                    نموذج مخصص
+                </option>
+
+            </select>
+
+            <input id="story-custom-model"
+                   class="custom-input"
+                   type="text"
+                   placeholder="معرف نموذج الكتابة...">
+
+        </div>
+
+        <button id="story-btn"
+                class="btn-primary"
+                type="button">
+            ✨ إنشاء القصة والسكريبت
+        </button>
+
+    </div>
+
+    <div id="story-showcase"
+         class="media-showcase"
+         style="min-height:260px;">
+
+        <div style="font-size:2.2rem;opacity:.5;">
+            📝
+        </div>
+
+        <p style="font-size:.85rem;color:var(--text-dim);">
+            ستظهر القصة والمشاهد هنا
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- GALLERY -->
+
+<section id="gallery-view" class="tab-view">
+
+    <div class="glass-card"
+         style="padding:12px 16px;">
+
+        <div class="card-header"
+             style="border:none;padding:0;">
+
+            <div class="card-title">
+                🗂️ معرض إبداعاتك
+            </div>
+
+            <button id="clear-gallery-btn"
+                    class="btn-secondary"
+                    type="button">
+                مسح السجل
+            </button>
+
+        </div>
+
+    </div>
+
+    <div id="gallery-container"
+         class="gallery-grid">
+
+        <div class="media-showcase">
+
+            <div style="font-size:2rem;opacity:.5;">
+                ✨
+            </div>
+
+            <p style="font-size:.85rem;color:var(--text-dim);">
+                ستظهر نتائجك هنا
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- BOTTOM NAV -->
+
+<nav class="bottom-nav">
+
+    <button class="nav-item active"
+            data-view="chat-view"
+            type="button">
+        <span>💬</span>
+        <span>المحادثة</span>
+    </button>
+
+    <button class="nav-item"
+            data-view="story-view"
+            type="button">
+        <span>📝</span>
+        <span>القصص</span>
+    </button>
+
+    <button class="nav-item"
+            data-view="image-view"
+            type="button">
+        <span>🎨</span>
+        <span>الصور</span>
+    </button>
+
+    <button class="nav-item"
+            data-view="video-view"
+            type="button">
+        <span>🎬</span>
+        <span>الفيديو</span>
+    </button>
+
+    <button class="nav-item"
+            data-view="audio-view"
+            type="button">
+        <span>🔊</span>
+        <span>الصوت</span>
+    </button>
+
+    <button class="nav-item"
+            data-view="gallery-view"
+            type="button">
+
+        <span id="gallery-badge"
+              class="count-badge">
+            0
+        </span>
+
+        <span>🗂️</span>
+        <span>المعرض</span>
+
+    </button>
+
+</nav>
+
+
+<!-- API KEYS MODAL -->
+
+<div id="api-modal">
+
+    <div class="glass-card api-modal-card">
+
+        <div class="card-header">
+
+            <div class="card-title">
+                🔑 إدارة مفاتيح API
+            </div>
+
+            <button id="close-api-modal"
+                    class="btn-secondary"
+                    type="button">
+                ✕ إغلاق
+            </button>
+
+        </div>
+
+        <div class="status-box show info"
+             style="margin:0;">
+
+            مفاتيح API الخارجية مستقلة عن Puter ولا يتم إرسالها
+            إلى حساب Puter.
+
+        </div>
+
+        <div class="security-note">
+
+            ⚠️ تنبيه: يتم حفظ المفتاح محلياً في هذا المتصفح.
+            لا تستخدم هذه الطريقة لمفتاح إنتاجي شديد الحساسية.
+            للاستخدام الإنتاجي يفضل استخدام خادم Backend.
+
+            <br><br>
+
+            <strong>Google / Veo:</strong>
+            وجود مفتاح Google هنا لا يعني أن Puter سيستخدمه تلقائياً.
+            نماذج Veo الموجودة في قائمة الفيديو تستخدم مسار Puter الموثق.
+
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                مزود API
+            </label>
+
+            <select id="api-provider">
+
+                <option value="Google">
+                    💎 Google / Gemini
+                </option>
+
+                <option value="OpenAI">
+                    🧠 OpenAI
+                </option>
+
+                <option value="Anthropic">
+                    ✨ Anthropic
+                </option>
+
+                <option value="ElevenLabs">
+                    🔊 ElevenLabs
+                </option>
+
+                <option value="Custom">
+                    ⚙️ مزود مخصص
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                اسم المفتاح
+            </label>
+
+            <input id="api-name"
+                   type="text"
+                   placeholder="مثال: مفتاحي الرئيسي">
+
+        </div>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                API Key
+            </label>
+
+            <input id="api-key-value"
+                   type="password"
+                   placeholder="أدخل مفتاح API..."
+                   autocomplete="off">
+
+        </div>
+
+        <div class="switch-row">
+
+            <span>
+                👁️ إظهار المفتاح
+            </span>
+
+            <input id="show-api-key"
+                   type="checkbox">
+
+        </div>
+
+        <button id="save-api-key"
+                class="btn-primary"
+                type="button">
+            💾 حفظ المفتاح
+        </button>
+
+        <div class="control-group">
+
+            <label class="control-label">
+                المفاتيح المحفوظة
+            </label>
+
+            <div id="api-keys-list"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+"use strict";
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
+
+let chatHistory = [];
+let galleryCount = 0;
+let isAuthBusy = false;
+
+const API_KEYS_STORAGE =
+    "puter_ai_studio_external_api_keys";
+
+let externalApiKeys = [];
+
+
+/* =========================================================
+   VIDEO CATALOG
+   موثق حسب واجهة txt2vid الحالية في Puter.
+========================================================= */
+
+const VIDEO_MODELS = [
+
+    {
+        id:"togetherai:wan-ai/wan2.7-t2v",
+        name:"⚡ Wan 2.7 - Together AI"
+    },
+
+    {
+        id:"togetherai:google/veo-3.1",
+        name:"💎 Google Veo 3.1"
+    },
+
+    {
+        id:"togetherai:google/veo-3.1-lite",
+        name:"💎 Google Veo 3.1 Lite"
+    },
+
+    {
+        id:"bytedance/seedance-2.5",
+        name:"🌟 Seedance 2.5"
+    },
+
+    {
+        id:"bytedance/seedance-2.0",
+        name:"🌟 Seedance 2.0"
+    },
+
+    {
+        id:"bytedance/seedance-1.0-pro",
+        name:"🎬 Seedance 1.0 Pro"
+    },
+
+    {
+        id:"bytedance/seedance-1.0-lite",
+        name:"🎬 Seedance 1.0 Lite"
+    },
+
+    {
+        id:"kling-4.0",
+        name:"🔥 Kling 4.0"
+    },
+
+    {
+        id:"kling-4.0-flash",
+        name:"⚡ Kling 4.0 Flash"
+    },
+
+    {
+        id:"kling-3.0-turbo",
+        name:"🎥 Kling 3.0 Turbo"
+    },
+
+    {
+        id:"kling-3.0",
+        name:"🎥 Kling 3.0"
+    },
+
+    {
+        id:"kling-3.0-omni",
+        name:"🧠 Kling 3.0 Omni"
+    },
+
+    {
+        id:"kling-o1",
+        name:"🔧 Kling O1"
+    },
+
+    {
+        id:"kling-2.6",
+        name:"🎞️ Kling 2.6"
+    },
+
+    {
+        id:"kling-2.5-turbo",
+        name:"🎞️ Kling 2.5 Turbo"
+    },
+
+    {
+        id:"minimax-h3",
+        name:"🚀 MiniMax H3"
+    },
+
+    {
+        id:"minimax-h3-highspeed",
+        name:"⚡ MiniMax H3 High Speed"
+    },
+
+    {
+        id:"minimax-h3-lite",
+        name:"🚀 MiniMax H3 Lite"
+    },
+
+    {
+        id:"minimax-h3-max",
+        name:"🚀 MiniMax H3 Max"
+    },
+
+    {
+        id:"minimax-hailuo-2.3",
+        name:"🎬 MiniMax Hailuo 2.3"
+    },
+
+    {
+        id:"minimax-hailuo-2.3-fast",
+        name:"⚡ MiniMax Hailuo 2.3 Fast"
+    },
+
+    {
+        id:"minimax-hailuo-02",
+        name:"🎬 MiniMax Hailuo 02"
+    },
+
+    {
+        id:"pixverse/pixverse-v5",
+        name:"🎨 PixVerse V5"
+    },
+
+    {
+        id:"gemini-omni-1.1-flash",
+        name:"💎 Gemini Omni 1.1 Flash"
+    }
+
+];
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function $(id){
+    return document.getElementById(id);
+}
+
+
+function showStatus(message,type="info"){
+
+    const box=$("status-box");
+
+    if(!box)return;
+
+    box.textContent=message;
+
+    box.className="status-box show "+type;
+
+    clearTimeout(showStatus.timer);
+
+    showStatus.timer=setTimeout(()=>{
+        box.className="status-box";
+    },7000);
+}
+
+
+function getErrorMessage(error){
+
+    if(!error){
+        return "حدث خطأ غير معروف.";
+    }
+
+    const code=
+        error.errorCode||
+        error.error||
+        error.code||
+        error.name||
+        "";
+
+    const message=
+        error.msg||
+        error.message||
+        String(error);
+
+    if(code==="popup_blocked"){
+        return "تم حظر نافذة تسجيل الدخول. اسمح بالنوافذ المنبثقة ثم حاول مرة أخرى.";
+    }
+
+    if(code==="auth_window_closed"){
+        return "تم إغلاق نافذة تسجيل الدخول قبل إكمال العملية.";
+    }
+
+    if(code==="unsupported_origin"){
+        return "هذه الصفحة تحتاج إلى http://localhost أو موقع مستضاف بدلاً من file://.";
+    }
+
+    if(code==="not_available_in_app"){
+        return "المستخدم داخل تطبيق Puter يكون مسجلاً تلقائياً.";
+    }
+
+    if(code==="insufficient_funds"){
+        return "الرصيد أو الميزانية غير كافية لتنفيذ العملية.";
+    }
+
+    if(code==="prompt_required"){
+        return "يجب إدخال نص صالح أولاً.";
+    }
+
+    return message;
+}
+
+
+function isPuterReady(){
+
+    return(
+        typeof window.puter!=="undefined" &&
+        window.puter &&
+        window.puter.auth
+    );
+}
+
+
+function safeRandomId(){
+
+    if(
+        window.crypto &&
+        typeof window.crypto.randomUUID==="function"
+    ){
+        return window.crypto.randomUUID();
+    }
+
+    return(
+        Date.now().toString(36)+
+        Math.random().toString(36).slice(2)
+    );
+}
+
+
+/* =========================================================
+   AUTHENTICATION
+========================================================= */
+
+async function handleAuthClick(){
+
+    if(isAuthBusy)return;
+
+    if(!isPuterReady()){
+
+        showStatus(
+            "مكتبة Puter.js لم تُحمّل.",
+            "error"
+        );
+
+        return;
+    }
+
+
+    if(puter.auth.isSignedIn()){
+
+        try{
+
+            isAuthBusy=true;
+
+            $("auth-btn").disabled=true;
+
+            $("auth-text").textContent="جارٍ الخروج...";
+            $("auth-icon").textContent="⏳";
+
+            await puter.auth.signOut();
+
+            resetAuthButton();
+
+            showStatus(
+                "تم تسجيل الخروج بنجاح.",
+                "success"
+            );
+
+        }catch(error){
+
+            console.error(error);
+
+            showStatus(
+                "تعذر تسجيل الخروج: "+
+                getErrorMessage(error),
+                "error"
+            );
+
+        }finally{
+
+            isAuthBusy=false;
+            $("auth-btn").disabled=false;
         }
 
-        function toggleCustom(selectId, inputId) {
-            const sel = document.getElementById(selectId);
-            const inp = document.getElementById(inputId);
-            if (sel && inp) {
-                inp.style.display = (sel.value === 'custom') ? 'block' : 'none';
+        return;
+    }
+
+
+    try{
+
+        isAuthBusy=true;
+
+        $("auth-btn").disabled=true;
+
+        $("auth-text").textContent=
+            "جارٍ فتح الدخول...";
+
+        $("auth-icon").textContent="⏳";
+
+        showStatus(
+            "جاري فتح تسجيل الدخول إلى Puter...",
+            "info"
+        );
+
+        await puter.auth.signIn();
+
+        await updateAuthUI();
+
+        showStatus(
+            "تم تسجيل الدخول بنجاح وجاري تحديث النماذج.",
+            "success"
+        );
+
+    }catch(error){
+
+        console.error(
+            "Authentication error:",
+            error
+        );
+
+        showStatus(
+            "فشل تسجيل الدخول: "+
+            getErrorMessage(error),
+            "error"
+        );
+
+        resetAuthButton();
+
+    }finally{
+
+        isAuthBusy=false;
+        $("auth-btn").disabled=false;
+    }
+}
+
+
+function resetAuthButton(){
+
+    $("auth-btn").classList.remove(
+        "signed-in"
+    );
+
+    $("auth-icon").textContent="🔑";
+    $("auth-text").textContent="تسجيل الدخول";
+    $("auth-btn").title="";
+}
+
+
+async function updateAuthUI(){
+
+    if(!isPuterReady()){
+        resetAuthButton();
+        return;
+    }
+
+    try{
+
+        const signedIn=
+            puter.auth.isSignedIn();
+
+        if(!signedIn){
+
+            resetAuthButton();
+            return;
+        }
+
+        const user=
+            await puter.auth.getUser();
+
+        $("auth-btn").classList.add(
+            "signed-in"
+        );
+
+        $("auth-icon").textContent="👤";
+
+        $("auth-text").textContent=
+            user&&user.username
+                ?user.username
+                :"حسابي";
+
+        $("auth-btn").title=
+            "أنت مسجل الدخول. اضغط لتسجيل الخروج.";
+
+        loadPuterCatalogs();
+
+    }catch(error){
+
+        console.error(
+            "Auth UI error:",
+            error
+        );
+
+        resetAuthButton();
+    }
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function openView(viewId,btnEl){
+
+    document
+        .querySelectorAll(".tab-view")
+        .forEach(view=>{
+            view.classList.remove("active");
+        });
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(button=>{
+            button.classList.remove("active");
+        });
+
+    const target=$(viewId);
+
+    if(target){
+        target.classList.add("active");
+    }
+
+    if(btnEl){
+        btnEl.classList.add("active");
+    }
+}
+
+
+/* =========================================================
+   CUSTOM MODELS
+========================================================= */
+
+function toggleCustom(selectId,inputId){
+
+    const select=$(selectId);
+    const input=$(inputId);
+
+    if(!select||!input)return;
+
+    if(select.value==="custom"){
+
+        input.style.display="block";
+
+        setTimeout(()=>{
+            input.focus();
+        },0);
+
+    }else{
+
+        input.style.display="none";
+    }
+}
+
+
+function getSelectedModel(selectId,inputId){
+
+    const select=$(selectId);
+    const input=$(inputId);
+
+    if(!select)return"";
+
+    if(select.value==="custom"){
+
+        return input
+            ?input.value.trim()
+            :"";
+    }
+
+    return select.value;
+}
+
+
+function addSelectOption(
+    select,
+    value,
+    label
+){
+
+    if(!select)return;
+
+    const option=
+        document.createElement("option");
+
+    option.value=value;
+    option.textContent=label;
+
+    select.appendChild(option);
+}
+
+
+/* =========================================================
+   CHAT
+========================================================= */
+
+function appendChatBubble(
+    type,
+    label,
+    message
+){
+
+    const box=$("chat-messages");
+
+    const bubble=
+        document.createElement("div");
+
+    bubble.className="bubble "+type;
+
+    const meta=
+        document.createElement("span");
+
+    meta.className="bubble-meta";
+    meta.textContent=label;
+
+    const content=
+        document.createElement("span");
+
+    content.className="content";
+    content.textContent=message;
+
+    bubble.appendChild(meta);
+    bubble.appendChild(content);
+
+    box.appendChild(bubble);
+
+    box.scrollTop=box.scrollHeight;
+
+    return{
+        bubble,
+        content
+    };
+}
+
+
+function clearChat(){
+
+    chatHistory=[];
+
+    $("chat-messages").innerHTML="";
+
+    appendChatBubble(
+        "ai",
+        "🤖 المساعد الذكي",
+        "محادثة جديدة جاهزة."
+    );
+}
+
+
+async function sendChat(){
+
+    const input=$("chat-input");
+
+    const text=input.value.trim();
+
+    if(!text)return;
+
+    if(!isPuterReady()){
+
+        showStatus(
+            "مكتبة Puter غير متاحة.",
+            "error"
+        );
+
+        return;
+    }
+
+    if(!puter.auth.isSignedIn()){
+
+        showStatus(
+            "سجّل الدخول أولاً لاستخدام المساعد.",
+            "info"
+        );
+
+        return;
+    }
+
+    const model=
+        getSelectedModel(
+            "chat-model",
+            "chat-custom"
+        );
+
+    if(!model){
+
+        showStatus(
+            "اختر نموذجاً صالحاً.",
+            "error"
+        );
+
+        return;
+    }
+
+    appendChatBubble(
+        "user",
+        "👤 أنت",
+        text
+    );
+
+    input.value="";
+
+    const result=
+        appendChatBubble(
+            "ai",
+            "🤖 "+model,
+            "⏳ جاري التوليد..."
+        );
+
+    const output=result.content;
+
+    chatHistory.push({
+        role:"user",
+        content:text
+    });
+
+    $("send-btn").disabled=true;
+
+    try{
+
+        const response=
+            await puter.ai.chat(
+                chatHistory,
+                {
+                    model:model,
+                    stream:true
+                }
+            );
+
+        output.textContent="";
+
+        let fullText="";
+
+        if(
+            response &&
+            typeof response[Symbol.asyncIterator]==="function"
+        ){
+
+            for await(const part of response){
+
+                if(part&&part.text){
+
+                    fullText+=part.text;
+
+                    output.textContent=
+                        fullText;
+
+                    $("chat-messages").scrollTop=
+                        $("chat-messages").scrollHeight;
+                }
             }
+
+        }else{
+
+            if(
+                response &&
+                typeof response==="object" &&
+                response.message
+            ){
+
+                fullText=
+                    typeof response.message==="string"
+                        ?response.message
+                        :(
+                            response.message.content||
+                            JSON.stringify(response.message)
+                        );
+
+            }else{
+
+                fullText=
+                    String(response??"");
+            }
+
+            output.textContent=fullText;
         }
 
-        function getSelectedModel(selectId, inputId) {
-            const sel = document.getElementById(selectId);
-            const inp = document.getElementById(inputId);
-            if (!sel) return 'gpt-4o';
-            return sel.value === 'custom' && inp ? inp.value.trim() : sel.value;
+        if(!fullText){
+
+            fullText=
+                "تم استلام الرد ولكن بدون نص.";
+
+            output.textContent=fullText;
         }
 
-        // فحص حالة تسجيل الدخول وتحديث الواجهة بأمان
-        async function updateAuthUI() {
-            try {
-                if (typeof puter !== 'undefined' && puter.auth && puter.auth.isSignedIn()) {
-                    const user = await puter.auth.getUser();
-                    if (user && user.username) {
-                        document.getElementById('auth-text').textContent = user.username;
-                        document.getElementById('auth-btn').style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        chatHistory.push({
+            role:"assistant",
+            content:fullText
+        });
+
+    }catch(error){
+
+        console.error(
+            "Chat error:",
+            error
+        );
+
+        output.textContent=
+            "⚠️ "+getErrorMessage(error);
+
+        if(
+            chatHistory.length &&
+            chatHistory[chatHistory.length-1].role==="user"
+        ){
+
+            chatHistory.pop();
+        }
+
+    }finally{
+
+        $("send-btn").disabled=false;
+    }
+}
+
+
+/* =========================================================
+   PUTER CHAT MODELS
+========================================================= */
+
+async function fetchAllModels(){
+
+    if(!isPuterReady()){
+
+        showStatus(
+            "مكتبة Puter غير متاحة.",
+            "error"
+        );
+
+        return;
+    }
+
+    if(!puter.auth.isSignedIn()){
+
+        showStatus(
+            "سجّل الدخول أولاً.",
+            "info"
+        );
+
+        return;
+    }
+
+    const select=$("chat-model");
+    const button=$("models-btn");
+
+    button.disabled=true;
+    button.textContent="⏳ جاري الجلب...";
+
+    try{
+
+        if(
+            !puter.ai||
+            typeof puter.ai.listModels!=="function"
+        ){
+
+            throw new Error(
+                "listModels() غير متاحة."
+            );
+        }
+
+        const models=
+            await puter.ai.listModels();
+
+        if(
+            !Array.isArray(models)||
+            !models.length
+        ){
+
+            throw new Error(
+                "لم يتم العثور على نماذج."
+            );
+        }
+
+        select.innerHTML="";
+
+        models.forEach(model=>{
+
+            const id=
+                typeof model==="string"
+                    ?model
+                    :(
+                        model?.puterId||
+                        model?.id||
+                        model?.model
+                    );
+
+            if(!id)return;
+
+            const option=
+                document.createElement("option");
+
+            option.value=id;
+
+            const name=
+                typeof model==="object"&&
+                model?.name
+                    ?model.name
+                    :id;
+
+            const provider=
+                typeof model==="object"&&
+                model?.provider
+                    ?` • ${model.provider}`
+                    :"";
+
+            option.textContent=
+                name===id
+                    ?`${id}${provider}`
+                    :`${name} (${id})${provider}`;
+
+            select.appendChild(option);
+        });
+
+        addSelectOption(
+            select,
+            "custom",
+            "✍️ نموذج مخصص..."
+        );
+
+        showStatus(
+            `تم جلب ${select.options.length-1} نموذج Chat من Puter.`,
+            "success"
+        );
+
+    }catch(error){
+
+        console.error(
+            "Models error:",
+            error
+        );
+
+        showStatus(
+            "تعذر جلب نماذج Chat: "+
+            getErrorMessage(error),
+            "error"
+        );
+
+    }finally{
+
+        button.disabled=false;
+        button.textContent="🔄 جلب الكل";
+    }
+}
+
+
+/* =========================================================
+   VIDEO CATALOG
+========================================================= */
+
+function populateVideoModels(){
+
+    const select=$("vid-model");
+
+    if(!select)return;
+
+    const previous=
+        select.value;
+
+    select.innerHTML="";
+
+    VIDEO_MODELS.forEach(model=>{
+
+        addSelectOption(
+            select,
+            model.id,
+            model.name
+        );
+
+    });
+
+    addSelectOption(
+        select,
+        "custom",
+        "✍️ نموذج فيديو مخصص..."
+    );
+
+    const exists=
+        [...select.options]
+            .some(option=>option.value===previous);
+
+    if(exists){
+        select.value=previous;
+    }else{
+        select.value=
+            "togetherai:wan-ai/wan2.7-t2v";
+    }
+}
+
+
+/* =========================================================
+   TTS CATALOG
+========================================================= */
+
+async function loadTTSCatalogs(){
+
+    if(
+        !puter.ai||
+        !puter.ai.txt2speech
+    ){
+        return;
+    }
+
+    try{
+
+        if(
+            typeof puter.ai.txt2speech.listEngines===
+            "function"
+        ){
+
+            const engines=
+                await puter.ai.txt2speech.listEngines(
+                    "all"
+                );
+
+            populateTTSEngines(engines);
+        }
+
+    }catch(error){
+
+        console.error(
+            "TTS engines error:",
+            error
+        );
+    }
+
+
+    try{
+
+        if(
+            typeof puter.ai.txt2speech.listVoices===
+            "function"
+        ){
+
+            const voices=
+                await puter.ai.txt2speech.listVoices({
+                    provider:"all"
+                });
+
+            populateTTSVoices(voices);
+        }
+
+    }catch(error){
+
+        console.error(
+            "TTS voices error:",
+            error
+        );
+    }
+}
+
+
+function populateTTSEngines(engines){
+
+    const select=$("tts-model");
+
+    if(!select)return;
+
+    const previous=
+        select.value;
+
+    select.innerHTML="";
+
+    if(
+        !Array.isArray(engines)||
+        !engines.length
+    ){
+
+        addSelectOption(
+            select,
+            "gpt-4o-mini-tts",
+            "🧠 GPT-4o Mini TTS"
+        );
+
+        addSelectOption(
+            select,
+            "tts-1",
+            "🎧 TTS-1"
+        );
+
+        addSelectOption(
+            select,
+            "tts-1-hd",
+            "🎧 TTS-1 HD"
+        );
+
+    }else{
+
+        engines.forEach(engine=>{
+
+            if(!engine||!engine.id)return;
+
+            const provider=
+                engine.provider
+                    ?` • ${engine.provider}`
+                    :"";
+
+            addSelectOption(
+                select,
+                engine.id,
+                `${engine.name||engine.id}${provider}`
+            );
+        });
+    }
+
+    addSelectOption(
+        select,
+        "custom",
+        "✍️ نموذج مخصص..."
+    );
+
+    const exists=
+        [...select.options]
+            .some(option=>option.value===previous);
+
+    if(exists){
+        select.value=previous;
+    }
+}
+
+
+function populateTTSVoices(voices){
+
+    const select=$("tts-voice");
+
+    if(!select)return;
+
+    const previous=
+        select.value;
+
+    select.innerHTML="";
+
+    if(
+        !Array.isArray(voices)||
+        !voices.length
+    ){
+
+        [
+            ["alloy","👤 Alloy"],
+            ["ash","👤 Ash"],
+            ["coral","👩 Coral"],
+            ["echo","👨 Echo"],
+            ["fable","🎭 Fable"],
+            ["nova","👩 Nova"],
+            ["onyx","🤵 Onyx"],
+            ["sage","🧑 Sage"],
+            ["shimmer","✨ Shimmer"]
+        ].forEach(item=>{
+            addSelectOption(
+                select,
+                item[0],
+                item[1]
+            );
+        });
+
+        return;
+    }
+
+    voices.forEach(voice=>{
+
+        if(!voice||!voice.id)return;
+
+        const provider=
+            voice.provider
+                ?` • ${voice.provider}`
+                :"";
+
+        const language=
+            voice.language?.code
+                ?` • ${voice.language.code}`
+                :"";
+
+        addSelectOption(
+            select,
+            voice.id,
+            `${voice.name||voice.id}${provider}${language}`
+        );
+    });
+
+    const exists=
+        [...select.options]
+            .some(option=>option.value===previous);
+
+    if(exists){
+        select.value=previous;
+    }
+}
+
+
+/*
+ * يجمع الكتالوجات بعد تسجيل الدخول.
+ */
+
+async function loadPuterCatalogs(){
+
+    if(!isPuterReady())return;
+
+    if(!puter.auth.isSignedIn())return;
+
+    populateVideoModels();
+
+    try{
+        await fetchAllModels();
+    }catch(error){
+        console.error(
+            "Chat catalog error:",
+            error
+        );
+    }
+
+    await loadTTSCatalogs();
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+async function createImage(){
+
+    const prompt=
+        $("img-prompt").value.trim();
+
+    const model=
+        getSelectedModel(
+            "img-model",
+            "img-custom"
+        );
+
+    if(!prompt){
+
+        showStatus(
+            "اكتب وصف الصورة أولاً.",
+            "info"
+        );
+
+        return;
+    }
+
+    if(!isPuterReady()){
+
+        showStatus(
+            "مكتبة Puter غير متاحة.",
+            "error"
+        );
+
+        return;
+    }
+
+    const showcase=$("img-showcase");
+    const button=$("img-btn");
+
+    button.disabled=true;
+
+    showcase.classList.remove(
+        "has-content"
+    );
+
+    showcase.innerHTML=`
+        <div class="spinner"></div>
+        <p>جاري توليد الصورة...</p>
+    `;
+
+    try{
+
+        const image=
+            await puter.ai.txt2img(
+                prompt,
+                {
+                    model:model,
+                    testMode:$("img-test").checked
+                }
+            );
+
+        showcase.innerHTML="";
+        showcase.classList.add(
+            "has-content"
+        );
+
+        showcase.appendChild(image);
+
+        const actions=
+            document.createElement("div");
+
+        actions.className="media-actions";
+
+        if(image.src){
+
+            const download=
+                document.createElement("a");
+
+            download.className=
+                "btn-secondary";
+
+            download.textContent=
+                "📥 فتح/تحميل";
+
+            download.href=image.src;
+            download.target="_blank";
+            download.rel="noopener";
+
+            actions.appendChild(download);
+        }
+
+        showcase.appendChild(actions);
+
+        addToGallery(
+            "🎨 صورة",
+            prompt,
+            image
+        );
+
+    }catch(error){
+
+        console.error(
+            "Image error:",
+            error
+        );
+
+        showcase.innerHTML="";
+
+        const message=
+            document.createElement("p");
+
+        message.style.color="#f87171";
+
+        message.textContent=
+            "⚠️ "+getErrorMessage(error);
+
+        showcase.appendChild(message);
+
+    }finally{
+
+        button.disabled=false;
+    }
+}
+
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+async function createVideo(){
+
+    const prompt=
+        $("vid-prompt").value.trim();
+
+    const model=
+        getSelectedModel(
+            "vid-model",
+            "vid-custom"
+        );
+
+    if(!prompt){
+
+        showStatus(
+            "اكتب وصف الفيديو أولاً.",
+            "info"
+        );
+
+        return;
+    }
+
+    if(!model){
+
+        showStatus(
+            "اختر نموذج فيديو صالحاً.",
+            "error"
+        );
+
+        return;
+    }
+
+    if(!isPuterReady()){
+
+        showStatus(
+            "مكتبة Puter غير متاحة.",
+            "error"
+        );
+
+        return;
+    }
+
+    const showcase=$("vid-showcase");
+    const button=$("vid-btn");
+
+    button.disabled=true;
+
+    showcase.classList.remove(
+        "has-content"
+    );
+
+    showcase.innerHTML=`
+        <div class="spinner"></div>
+        <p>جاري صناعة الفيديو...</p>
+        <p class="small-note">
+            قد تستغرق العملية من عشرات الثواني إلى عدة دقائق حسب النموذج.
+        </p>
+    `;
+
+    try{
+
+        const options={
+            model:model,
+            testMode:$("vid-test").checked
+        };
+
+        const seconds=
+            $("vid-seconds").value;
+
+        const size=
+            $("vid-size").value;
+
+        if(seconds){
+            options.seconds=
+                Number(seconds);
+        }
+
+        if(size){
+            options.size=size;
+        }
+
+        /*
+         * generate_audio متاح فقط للنماذج التي تدعمه.
+         * Puter يتعامل مع الخيارات غير المدعومة وفق
+         * مواصفات النموذج، لذلك لا نفرضه على كل نموذج.
+         */
+        if(
+            model.includes("seedance")||
+            model.includes("kling")||
+            model.includes("wan")||
+            model.includes("minimax")
+        ){
+
+            options.generate_audio=
+                $("vid-audio").checked;
+        }
+
+        const video=
+            await puter.ai.txt2vid(
+                prompt,
+                options
+            );
+
+        video.controls=true;
+        video.autoplay=false;
+        video.loop=true;
+        video.playsInline=true;
+
+        showcase.innerHTML="";
+        showcase.classList.add(
+            "has-content"
+        );
+
+        showcase.appendChild(video);
+
+        if(video.src){
+
+            const actions=
+                document.createElement("div");
+
+            actions.className=
+                "media-actions";
+
+            const download=
+                document.createElement("a");
+
+            download.className=
+                "btn-secondary";
+
+            download.textContent=
+                "📥 فتح الفيديو";
+
+            download.href=video.src;
+            download.target="_blank";
+            download.rel="noopener";
+
+            actions.appendChild(download);
+            showcase.appendChild(actions);
+        }
+
+        addToGallery(
+            "🎬 فيديو",
+            prompt,
+            video
+        );
+
+    }catch(error){
+
+        console.error(
+            "Video error:",
+            error
+        );
+
+        showcase.innerHTML="";
+
+        const message=
+            document.createElement("p");
+
+        message.style.color="#f87171";
+
+        message.textContent=
+            "⚠️ "+getErrorMessage(error);
+
+        showcase.appendChild(message);
+
+    }finally{
+
+        button.disabled=false;
+    }
+}
+
+
+/* =========================================================
+   AUDIO
+========================================================= */
+
+function getTTSProvider(model){
+
+    const m=
+        String(model||"").toLowerCase();
+
+    if(m.includes("eleven")){
+        return"elevenlabs";
+    }
+
+    if(
+        m.includes("gpt")||
+        m==="tts-1"||
+        m==="tts-1-hd"
+    ){
+        return"openai";
+    }
+
+    if(m.includes("gemini")){
+        return"gemini";
+    }
+
+    if(m.includes("speechify")){
+        return"speechify";
+    }
+
+    if(m.includes("kling")){
+        return"kling";
+    }
+
+    return null;
+}
+
+
+async function createAudio(){
+
+    const text=
+        $("tts-input").value.trim();
+
+    const model=
+        getSelectedModel(
+            "tts-model",
+            "tts-custom"
+        );
+
+    const voice=
+        $("tts-voice").value;
+
+    if(!text){
+
+        showStatus(
+            "اكتب النص المراد نطقه.",
+            "info"
+        );
+
+        return;
+    }
+
+    if(text.length>3000){
+
+        showStatus(
+            "النص يجب ألا يتجاوز 3000 حرف.",
+            "error"
+        );
+
+        return;
+    }
+
+    if(!isPuterReady()){
+
+        showStatus(
+            "مكتبة Puter غير متاحة.",
+            "error"
+        );
+
+        return;
+    }
+
+    const showcase=$("tts-showcase");
+    const button=$("tts-btn");
+
+    button.disabled=true;
+
+    showcase.innerHTML=`
+        <div class="spinner"></div>
+        <p>جاري توليد الصوت...</p>
+    `;
+
+    try{
+
+        const provider=
+            getTTSProvider(model);
+
+        const options={
+            model:model,
+            voice:voice
+        };
+
+        if(provider){
+            options.provider=provider;
+        }
+
+        const audio=
+            await puter.ai.txt2speech(
+                text,
+                options
+            );
+
+        audio.controls=true;
+
+        const card=
+            document.createElement("div");
+
+        card.className=
+            "audio-player-card";
+
+        const title=
+            document.createElement("div");
+
+        title.style.color="#a5b4fc";
+
+        title.textContent=
+            `🎙️ ${model} • ${voice}`;
+
+        card.appendChild(title);
+        card.appendChild(audio);
+
+        showcase.innerHTML="";
+        showcase.classList.add(
+            "has-content"
+        );
+
+        showcase.appendChild(card);
+
+        if(audio.src){
+
+            const actions=
+                document.createElement("div");
+
+            actions.className=
+                "media-actions";
+
+            const download=
+                document.createElement("a");
+
+            download.className=
+                "btn-secondary";
+
+            download.textContent=
+                "📥 فتح الصوت";
+
+            download.href=audio.src;
+            download.target="_blank";
+            download.rel="noopener";
+
+            actions.appendChild(download);
+            showcase.appendChild(actions);
+        }
+
+        addToGallery(
+            "🔊 صوت",
+            text,
+            audio
+        );
+
+    }catch(error){
+
+        console.error(
+            "Audio error:",
+            error
+        );
+
+        showcase.innerHTML="";
+
+        const message=
+            document.createElement("p");
+
+        message.style.color="#f87171";
+
+        message.textContent=
+            "⚠️ "+getErrorMessage(error);
+
+        showcase.appendChild(message);
+
+    }finally{
+
+        button.disabled=false;
+    }
+}
+
+
+/* =========================================================
+   STORY / SCRIPT GENERATOR
+========================================================= */
+
+function parseScenes(text){
+
+    const scenes=[];
+
+    if(!text)return scenes;
+
+    /*
+     * نحاول التعرف على عناوين المشاهد المختلفة.
+     */
+    const parts=
+        text.split(
+            /(?=(?:المشهد|مشهد)\s*\d+\s*[:：\-])/gi
+        );
+
+    parts.forEach(part=>{
+
+        const clean=
+            part.trim();
+
+        if(!clean)return;
+
+        const match=
+            clean.match(
+                /^(?:المشهد|مشهد)\s*(\d+)\s*[:：\-]?\s*/i
+            );
+
+        if(!match)return;
+
+        const number=
+            match[1];
+
+        const body=
+            clean.slice(match[0].length).trim();
+
+        const promptMatch=
+            body.match(
+                /(?:prompt\s*الفيديو|video\s*prompt|برومبت\s*الفيديو)\s*[:：\-]\s*([\s\S]*)/i
+            );
+
+        let description=body;
+        let prompt="";
+
+        if(promptMatch){
+
+            prompt=
+                promptMatch[1].trim();
+
+            description=
+                body
+                    .replace(promptMatch[0],"")
+                    .trim();
+        }
+
+        scenes.push({
+            number:number,
+            description:description,
+            prompt:prompt||description
+        });
+
+    });
+
+    return scenes;
+}
+
+
+function renderStoryResult(text){
+
+    const showcase=
+        $("story-showcase");
+
+    showcase.innerHTML="";
+    showcase.classList.add(
+        "has-content"
+    );
+
+    const title=
+        document.createElement("div");
+
+    title.className="card-title";
+    title.textContent=
+        "📖 القصة والسكريبت";
+
+    showcase.appendChild(title);
+
+    const parsed=
+        parseScenes(text);
+
+    if(!parsed.length){
+
+        const output=
+            document.createElement("div");
+
+        output.className="story-output";
+        output.textContent=text;
+
+        showcase.appendChild(output);
+
+        return;
+    }
+
+    const intro=
+        document.createElement("div");
+
+    intro.className="story-output";
+
+    const firstSceneIndex=
+        text.search(
+            /(?:المشهد|مشهد)\s*\d+\s*[:：\-]/i
+        );
+
+    intro.textContent=
+        firstSceneIndex>0
+            ?text.slice(0,firstSceneIndex).trim()
+            :"تم إنشاء المشاهد التالية:";
+
+    showcase.appendChild(intro);
+
+    parsed.forEach(scene=>{
+
+        const card=
+            document.createElement("div");
+
+        card.className="scene-card";
+
+        const sceneTitle=
+            document.createElement("div");
+
+        sceneTitle.className="scene-title";
+
+        sceneTitle.textContent=
+            `🎬 المشهد ${scene.number}`;
+
+        const description=
+            document.createElement("div");
+
+        description.className=
+            "scene-prompt";
+
+        description.textContent=
+            scene.description;
+
+        const promptLabel=
+            document.createElement("div");
+
+        promptLabel.className="small-note";
+
+        promptLabel.textContent=
+            "Prompt الفيديو:";
+
+        const prompt=
+            document.createElement("div");
+
+        prompt.className="scene-prompt";
+        prompt.textContent=
+            scene.prompt;
+
+        const actions=
+            document.createElement("div");
+
+        actions.className="scene-actions";
+
+        const copy=
+            document.createElement("button");
+
+        copy.className="btn-secondary";
+        copy.type="button";
+        copy.textContent="📋 نسخ Prompt";
+
+        copy.addEventListener(
+            "click",
+            async()=>{
+
+                try{
+
+                    await navigator.clipboard.writeText(
+                        scene.prompt
+                    );
+
+                    showStatus(
+                        `تم نسخ Prompt المشهد ${scene.number}.`,
+                        "success"
+                    );
+
+                }catch(error){
+
+                    showStatus(
+                        "تعذر النسخ تلقائياً.",
+                        "error"
+                    );
+                }
+            }
+        );
+
+        const useVideo=
+            document.createElement("button");
+
+        useVideo.className="btn-secondary";
+        useVideo.type="button";
+        useVideo.textContent="🎬 إلى الفيديو";
+
+        useVideo.addEventListener(
+            "click",
+            ()=>{
+
+                $("vid-prompt").value=
+                    scene.prompt;
+
+                const videoButton=
+                    document.querySelector(
+                        '[data-view="video-view"]'
+                    );
+
+                openView(
+                    "video-view",
+                    videoButton
+                );
+
+                showStatus(
+                    `تم نقل Prompt المشهد ${scene.number} إلى استوديو الفيديو.`,
+                    "success"
+                );
+            }
+        );
+
+        actions.appendChild(copy);
+        actions.appendChild(useVideo);
+
+        card.appendChild(sceneTitle);
+        card.appendChild(description);
+        card.appendChild(promptLabel);
+        card.appendChild(prompt);
+        card.appendChild(actions);
+
+        showcase.appendChild(card);
+    });
+}
+
+
+async function createStory(){
+
+    const idea=
+        $("story-idea").value.trim();
+
+    const genre=
+        $("story-genre").value;
+
+    const duration=
+        $("story-duration").value;
+
+    const sceneCount=
+        $("story-scenes").value;
+
+    const style=
+        $("story-style").value;
+
+    const characters=
+        $("story-characters").value.trim();
+
+    const model=
+        getSelectedModel(
+            "story-model",
+            "story-custom-model"
+        );
+
+    if(!idea){
+
+        showStatus(
+            "اكتب فكرة القصة أولاً.",
+            "info"
+        );
+
+        return;
+    }
+
+    if(!isPuterReady()){
+
+        showStatus(
+            "مكتبة Puter غير متاحة.",
+            "error"
+        );
+
+        return;
+    }
+
+    if(!puter.auth.isSignedIn()){
+
+        showStatus(
+            "سجّل الدخول أولاً لإنشاء القصة.",
+            "info"
+        );
+
+        return;
+    }
+
+    const button=
+        $("story-btn");
+
+    const showcase=
+        $("story-showcase");
+
+    button.disabled=true;
+
+    showcase.classList.remove(
+        "has-content"
+    );
+
+    showcase.innerHTML=`
+        <div class="spinner"></div>
+        <p>جاري كتابة القصة والسكريبت وتقسيمها إلى مشاهد...</p>
+    `;
+
+    const request=
+`
+أنت كاتب سيناريو ومخرج فيديو.
+
+أنشئ قصة منظمة وقابلة للتحويل إلى فيديو.
+
+المطلوب:
+- الفكرة: ${idea}
+- النوع: ${genre}
+- مدة العمل التقريبية: ${duration} ثانية
+- عدد المشاهد: ${sceneCount}
+- الأسلوب البصري: ${style}
+- الشخصيات والمعلومات الإضافية: ${characters||"لا توجد"}
+
+التزم بالتنسيق التالي:
+
+1. عنوان القصة
+2. الفكرة العامة
+3. الشخصيات
+4. ملخص قصير
+5. السيناريو الكامل
+6. ثم قسم العمل إلى ${sceneCount} مشاهد بالضبط.
+
+لكل مشهد استخدم الصيغة:
+
+المشهد 1:
+وصف المشهد:
+الحوار:
+الحركة:
+الكاميرا:
+الإضاءة:
+المؤثرات الصوتية:
+Prompt الفيديو:
+
+المشهد 2:
+...
+
+وهكذا حتى المشهد ${sceneCount}.
+
+يجب أن يكون Prompt الفيديو واضحاً وقابلاً للاستخدام مع نموذج Text-to-Video.
+حافظ على ثبات الشخصيات والملابس والبيئة بين المشاهد.
+لا تستخدم معلومات غير مطلوبة.
+`;
+
+    try{
+
+        const response=
+            await puter.ai.chat(
+                [
+                    {
+                        role:"user",
+                        content:request
                     }
+                ],
+                {
+                    model:model
                 }
-            } catch (e) { 
-                console.log('Auth check note:', e); 
+            );
+
+        let text="";
+
+        if(
+            response &&
+            typeof response[Symbol.asyncIterator]==="function"
+        ){
+
+            for await(const part of response){
+
+                if(part&&part.text){
+                    text+=part.text;
+                }
             }
-        }
-        window.addEventListener('load', updateAuthUI);
 
-        // دالة تسجيل الدخول المحسنة لمنع الأخطاء وتحديث الزر
-        async function handleAuth() {
-            try {
-                if (typeof puter === 'undefined') {
-                    alert('مكتبة Puter لم يتم تحميلها بشكل صحيح. تأكد من اتصال الإنترنت.');
-                    return;
-                }
-                await puter.auth.signIn();
-                await updateAuthUI();
-            } catch (e) { 
-                alert('فشل تسجيل الدخول أو تم إغلاق النافذة المنبثقة. حاول مرة أخرى.'); 
+        }else if(
+            response &&
+            response.message
+        ){
+
+            text=
+                typeof response.message==="string"
+                    ?response.message
+                    :(
+                        response.message.content||
+                        JSON.stringify(response.message)
+                    );
+
+        }else{
+
+            text=
+                String(response??"");
+        }
+
+        if(!text){
+
+            throw new Error(
+                "لم يتم استلام نص من نموذج القصة."
+            );
+        }
+
+        renderStoryResult(text);
+
+        addStoryToGallery(
+            "📝 قصة / سكريبت",
+            idea,
+            text
+        );
+
+    }catch(error){
+
+        console.error(
+            "Story error:",
+            error
+        );
+
+        showcase.innerHTML="";
+
+        const message=
+            document.createElement("p");
+
+        message.style.color="#f87171";
+
+        message.textContent=
+            "⚠️ "+getErrorMessage(error);
+
+        showcase.appendChild(message);
+
+    }finally{
+
+        button.disabled=false;
+    }
+}
+
+
+function addStoryToGallery(
+    typeLabel,
+    promptText,
+    text
+){
+
+    const container=
+        $("gallery-container");
+
+    if(galleryCount===0){
+        container.innerHTML="";
+    }
+
+    galleryCount++;
+
+    const badge=
+        $("gallery-badge");
+
+    badge.style.display="block";
+    badge.textContent=galleryCount;
+
+    const item=
+        document.createElement("div");
+
+    item.className="gallery-item";
+
+    const header=
+        document.createElement("div");
+
+    header.className=
+        "gallery-item-header";
+
+    const type=
+        document.createElement("span");
+
+    type.className="badge";
+    type.textContent=typeLabel;
+
+    const time=
+        document.createElement("span");
+
+    time.textContent=
+        "🕒 "+
+        new Date().toLocaleTimeString("ar-SA");
+
+    header.appendChild(type);
+    header.appendChild(time);
+
+    const prompt=
+        document.createElement("div");
+
+    prompt.style.fontSize=".85rem";
+    prompt.style.color="#e2e8f0";
+    prompt.textContent=promptText;
+
+    const story=
+        document.createElement("div");
+
+    story.className="story-output";
+    story.textContent=text;
+
+    item.appendChild(header);
+    item.appendChild(prompt);
+    item.appendChild(story);
+
+    container.prepend(item);
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+function addToGallery(
+    typeLabel,
+    promptText,
+    mediaElement
+){
+
+    const container=
+        $("gallery-container");
+
+    if(galleryCount===0){
+        container.innerHTML="";
+    }
+
+    galleryCount++;
+
+    const badge=
+        $("gallery-badge");
+
+    badge.style.display="block";
+    badge.textContent=galleryCount;
+
+    const item=
+        document.createElement("div");
+
+    item.className="gallery-item";
+
+    const header=
+        document.createElement("div");
+
+    header.className=
+        "gallery-item-header";
+
+    const type=
+        document.createElement("span");
+
+    type.className="badge";
+    type.textContent=typeLabel;
+
+    const time=
+        document.createElement("span");
+
+    time.textContent=
+        "🕒 "+
+        new Date().toLocaleTimeString("ar-SA");
+
+    header.appendChild(type);
+    header.appendChild(time);
+
+    const prompt=
+        document.createElement("div");
+
+    prompt.style.fontSize=".85rem";
+    prompt.style.color="#e2e8f0";
+    prompt.textContent=promptText;
+
+    item.appendChild(header);
+    item.appendChild(prompt);
+
+    if(mediaElement){
+
+        const clone=
+            mediaElement.cloneNode(true);
+
+        if(
+            clone.tagName==="VIDEO"||
+            clone.tagName==="AUDIO"
+        ){
+            clone.controls=true;
+        }
+
+        item.appendChild(clone);
+    }
+
+    container.prepend(item);
+}
+
+
+function clearGallery(){
+
+    galleryCount=0;
+
+    $("gallery-badge").style.display="none";
+
+    $("gallery-container").innerHTML=`
+        <div class="media-showcase">
+            <div style="font-size:2rem;opacity:.5;">
+                ✨
+            </div>
+            <p style="font-size:.85rem;color:var(--text-dim);">
+                تم مسح المعرض.
+            </p>
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   EXTERNAL API KEYS
+========================================================= */
+
+function loadExternalApiKeys(){
+
+    try{
+
+        const saved=
+            localStorage.getItem(
+                API_KEYS_STORAGE
+            );
+
+        externalApiKeys=
+            saved
+                ?JSON.parse(saved)
+                :[];
+
+        if(!Array.isArray(externalApiKeys)){
+            externalApiKeys=[];
+        }
+
+    }catch(error){
+
+        console.error(
+            "API keys load error:",
+            error
+        );
+
+        externalApiKeys=[];
+    }
+
+    renderApiKeys();
+}
+
+
+function saveExternalApiKeys(){
+
+    try{
+
+        localStorage.setItem(
+            API_KEYS_STORAGE,
+            JSON.stringify(externalApiKeys)
+        );
+
+    }catch(error){
+
+        console.error(
+            "API keys save error:",
+            error
+        );
+
+        showStatus(
+            "تعذر حفظ مفتاح API.",
+            "error"
+        );
+    }
+}
+
+
+function openApiModal(){
+
+    $("api-modal").style.display="block";
+
+    renderApiKeys();
+}
+
+
+function closeApiModal(){
+
+    $("api-modal").style.display="none";
+}
+
+
+function addExternalApiKey(){
+
+    const provider=
+        $("api-provider").value.trim();
+
+    const name=
+        $("api-name").value.trim();
+
+    const key=
+        $("api-key-value").value.trim();
+
+    if(!provider){
+
+        showStatus(
+            "اختر مزود API.",
+            "info"
+        );
+
+        return;
+    }
+
+    if(!key){
+
+        showStatus(
+            "أدخل مفتاح API.",
+            "info"
+        );
+
+        return;
+    }
+
+    externalApiKeys.push({
+
+        id:safeRandomId(),
+
+        provider:provider,
+
+        name:
+            name||"مفتاح بدون اسم",
+
+        key:key,
+
+        enabled:true,
+
+        createdAt:
+            new Date().toISOString()
+    });
+
+    saveExternalApiKeys();
+
+    $("api-name").value="";
+    $("api-key-value").value="";
+
+    showStatus(
+        `تمت إضافة مفتاح ${provider} محلياً.`,
+        "success"
+    );
+
+    renderApiKeys();
+}
+
+
+function deleteExternalApiKey(id){
+
+    externalApiKeys=
+        externalApiKeys.filter(
+            item=>item.id!==id
+        );
+
+    saveExternalApiKeys();
+
+    renderApiKeys();
+}
+
+
+function toggleExternalApiKey(id){
+
+    const item=
+        externalApiKeys.find(
+            item=>item.id===id
+        );
+
+    if(!item)return;
+
+    item.enabled=!item.enabled;
+
+    saveExternalApiKeys();
+
+    renderApiKeys();
+}
+
+
+function maskApiKey(key){
+
+    if(!key)return"";
+
+    if(key.length<=8){
+        return"••••••••";
+    }
+
+    return(
+        key.slice(0,4)+
+        "••••••••"+
+        key.slice(-4)
+    );
+}
+
+
+function renderApiKeys(){
+
+    const container=
+        $("api-keys-list");
+
+    if(!container)return;
+
+    container.innerHTML="";
+
+    if(!externalApiKeys.length){
+
+        const empty=
+            document.createElement("div");
+
+        empty.className=
+            "media-showcase";
+
+        empty.style.minHeight="120px";
+
+        empty.textContent=
+            "لا توجد مفاتيح API محفوظة.";
+
+        container.appendChild(empty);
+
+        return;
+    }
+
+    externalApiKeys.forEach(item=>{
+
+        const card=
+            document.createElement("div");
+
+        card.className=
+            "api-key-item";
+
+        const top=
+            document.createElement("div");
+
+        top.className=
+            "api-key-item-top";
+
+        const title=
+            document.createElement("div");
+
+        const name=
+            document.createElement("div");
+
+        name.className="api-key-name";
+        name.textContent=item.name;
+
+        const provider=
+            document.createElement("div");
+
+        provider.className="api-key-provider";
+        provider.textContent=item.provider;
+
+        title.appendChild(name);
+        title.appendChild(provider);
+
+        const status=
+            document.createElement("span");
+
+        status.className=
+            item.enabled
+                ?"api-key-active"
+                :"api-key-inactive";
+
+        status.textContent=
+            item.enabled
+                ?"● مفعّل"
+                :"● متوقف";
+
+        top.appendChild(title);
+        top.appendChild(status);
+
+        const keyText=
+            document.createElement("div");
+
+        keyText.style.fontFamily="monospace";
+        keyText.style.direction="ltr";
+        keyText.style.textAlign="left";
+
+        keyText.textContent=
+            maskApiKey(item.key);
+
+        const actions=
+            document.createElement("div");
+
+        actions.className="api-key-actions";
+
+        const toggle=
+            document.createElement("button");
+
+        toggle.className="btn-secondary";
+        toggle.type="button";
+
+        toggle.textContent=
+            item.enabled
+                ?"⏸️ تعطيل"
+                :"▶️ تفعيل";
+
+        toggle.addEventListener(
+            "click",
+            ()=>{
+                toggleExternalApiKey(item.id);
             }
-        }
+        );
 
-        function addToGallery(typeLabel, promptText, mediaElement) {
-            const container = document.getElementById('gallery-container');
-            if (galleryCount === 0) container.innerHTML = '';
-            galleryCount++;
-            const badge = document.getElementById('gallery-badge');
-            badge.style.display = 'block';
-            badge.textContent = galleryCount;
+        const remove=
+            document.createElement("button");
 
-            const item = document.createElement('div');
-            item.className = 'gallery-item';
-            item.innerHTML = <div class="gallery-item-header"><span class="badge">${typeLabel}</span><span>🕒 ${new Date().toLocaleTimeString()}</span></div><div style="font-size:0.85rem; color:#e2e8f0;">${promptText}</div>;
-            const clone = mediaElement.cloneNode(true);
-            if (clone.tagName === 'VIDEO' || clone.tagName === 'AUDIO') clone.controls = true;
-            item.appendChild(clone);
-            container.prepend(item);
-        }
+        remove.className="btn-secondary";
+        remove.type="button";
+        remove.textContent="🗑️ حذف";
 
-        function clearGallery() {
-            galleryCount = 0;
-            document.getElementById('gallery-badge').style.display = 'none';
-            document.getElementById('gallery-container').innerHTML = <div class="media-showcase"><div style="font-size:2rem; opacity:0.5;">✨</div><p style="font-size:0.85rem; color:var(--text-dim);">تم مسح المعرض.</p></div>;
-        }
+        remove.addEventListener(
+            "click",
+            ()=>{
 
-        async function fetchAllModels() {
-            const sel = document.getElementById('chat-model');
-            try {
-                const models = await puter.ai.listModels();
-                if (models && models.length > 0) {
-                    sel.innerHTML = '';
-                    models.forEach(m => {
-                        const opt = document.createElement('option');
-                        const id = typeof m === 'string' ? m : m.id;
-                        opt.value = id;
-                        opt.textContent = (m && m.name) ? ${m.name} (${id}) : id;
-                        sel.appendChild(opt);
-                    });
-                    const customOpt = document.createElement('option');
-                    customOpt.value = 'custom';
-                    customOpt.textContent = '✍️ نموذج مخصص...';
-                    sel.appendChild(customOpt);
-                    alert(تم جلب ${models.length} نموذج بنجاح!);
+                if(
+                    confirm(
+                        "هل تريد حذف مفتاح API هذا؟"
+                    )
+                ){
+
+                    deleteExternalApiKey(
+                        item.id
+                    );
                 }
-            } catch (e) { alert('خطأ أثناء جلب النماذج: ' + e.message); }
-        }
-
-        function clearChat() {
-            chatHistory = [];
-            document.getElementById('chat-messages').innerHTML = <div class="bubble ai"><span class="bubble-meta">🤖 المساعد الذكي</span>محادثة جديدة جاهزة.</div>;
-        }
-
-        async function sendChat() {
-            const input = document.getElementById('chat-input');
-            const box = document.getElementById('chat-messages');
-            const model = getSelectedModel('chat-model', 'chat-custom');
-            const text = input.value.trim();
-            if (!text) return;
-
-            box.appendChild(Object.assign(document.createElement('div'), { className: 'bubble user', innerHTML: <span class="bubble-meta">👤 أنت</span>${text} }));
-            input.value = '';
-
-            const aiBubble = box.appendChild(Object.assign(document.createElement('div'), { className: 'bubble ai', innerHTML: <span class="bubble-meta">🤖 ${model}</span><span class="content">⏳ جاري التوليد...</span> }));
-            const span = aiBubble.querySelector('.content');
-            box.scrollTop = box.scrollHeight;
-
-            chatHistory.push({ role: 'user', content: text });
-            try {
-                const resp = await puter.ai.chat(chatHistory, { model: model, stream: true });
-                span.textContent = '';
-                let full = '';
-                for await (const p of resp) {
-                    if (p?.text) { full += p.text; span.textContent = full; box.scrollTop = box.scrollHeight; }
-                }
-                chatHistory.push({ role: 'assistant', content: full || 'تم الرد' });
-            } catch (err) {
-                span.textContent = '⚠️ خطأ: ' + err.message;
-                chatHistory.pop();
             }
-        }
+        );
 
-        async function createImage() {
-            const prompt = document.getElementById('img-prompt').value.trim();
-            const model = getSelectedModel('img-model', 'img-custom');
-            const showcase = document.getElementById('img-showcase');
-            if (!prompt) return alert('اكتب وصف الصورة!');
+        actions.appendChild(toggle);
+        actions.appendChild(remove);
 
-            showcase.innerHTML = <div class="spinner"></div><p>جاري توليد الصورة عبر ${model}...</p>;
-            try {
-                const img = await puter.ai.txt2img(prompt, { model: model, testMode: document.getElementById('img-test').checked });
-                showcase.innerHTML = '';
-                showcase.classList.add('has-content');
-                showcase.appendChild(img);
-                const acts = document.createElement('div');
-                acts.className = 'media-actions';
-                acts.innerHTML = <a href="${img.src}" download="image.png" class="btn-secondary">📥 تحميل</a>;
-                showcase.appendChild(acts);
-                addToGallery('🎨 صورة', prompt, img);
-            } catch (e) { showcase.innerHTML = <p style="color:#f87171;">⚠️ خطأ: ${e.message}</p>; }
-        }
+        card.appendChild(top);
+        card.appendChild(keyText);
+        card.appendChild(actions);
 
-        async function createVideo() {
-            const prompt = document.getElementById('vid-prompt').value.trim();
-            const model = getSelectedModel('vid-model', 'vid-custom');
-            const showcase = document.getElementById('vid-showcase');
-            if (!prompt) return alert('اكتب وصف الفيديو!');
+        container.appendChild(card);
+    });
+}
 
-            showcase.innerHTML = <div class="spinner"></div><p>جاري صناعة الفيديو... (قد يستغرق دقيقة)</p>;
-            try {
-                const vid = await puter.ai.txt2vid(prompt, { model: model, testMode: document.getElementById('vid-test').checked });
-                vid.controls = true; vid.autoplay = true; vid.loop = true;
-                showcase.innerHTML = '';
-                showcase.classList.add('has-content');
-                showcase.appendChild(vid);
-                addToGallery('🎬 فيديو', prompt, vid);
-            } catch (e) { showcase.innerHTML = <p style="color:#f87171;">⚠️ خطأ: ${e.message}</p>; }
-        }
 
-        async function createAudio() {
-            const text = document.getElementById('tts-input').value.trim();
-            const model = getSelectedModel('tts-model', 'tts-custom');
-            const voice = document.getElementById('tts-voice').value;
-            const showcase = document.getElementById('tts-showcase');
-            if (!text) return alert('اكتب النص للصوت!');
+/* =========================================================
+   INITIALIZATION
+========================================================= */
 
-            showcase.innerHTML = <div class="spinner"></div><p>جاري توليد الصوت...</p>;
-            try {
-                const audio = await puter.ai.txt2speech(text, { model: model, voice: voice, language: document.getElementById('tts-lang').value });
-                audio.controls = true;
-                const card = document.createElement('div');
-                card.className = 'audio-player-card';
-                card.innerHTML = <div style="color:#a5b4fc;">🎙️ تعليق صوتي (${voice})</div>;
-                card.appendChild(audio);
-                showcase.innerHTML = '';
-                showcase.classList.add('has-content');
-                showcase.appendChild(card);
-                audio.play().catch(()=>{});
-                addToGallery('🔊 صوت', text, audio);
-            } catch (e) { showcase.innerHTML = <p style="color:#f87171;">⚠️ خطأ: ${e.message}</p>; }
-        }
-    </script>
+function initUI(){
+
+    /* AUTH */
+
+    $("auth-btn")
+        .addEventListener(
+            "click",
+            handleAuthClick
+        );
+
+
+    /* API KEYS */
+
+    $("api-keys-btn")
+        .addEventListener(
+            "click",
+            openApiModal
+        );
+
+    $("close-api-modal")
+        .addEventListener(
+            "click",
+            closeApiModal
+        );
+
+    $("save-api-key")
+        .addEventListener(
+            "click",
+            addExternalApiKey
+        );
+
+    $("show-api-key")
+        .addEventListener(
+            "change",
+            event=>{
+
+                $("api-key-value").type=
+                    event.target.checked
+                        ?"text"
+                        :"password";
+            }
+        );
+
+    $("api-modal")
+        .addEventListener(
+            "click",
+            event=>{
+
+                if(
+                    event.target===
+                    $("api-modal")
+                ){
+                    closeApiModal();
+                }
+            }
+        );
+
+    loadExternalApiKeys();
+
+
+    /* CHAT */
+
+    $("send-btn")
+        .addEventListener(
+            "click",
+            sendChat
+        );
+
+    $("clear-chat-btn")
+        .addEventListener(
+            "click",
+            clearChat
+        );
+
+    $("models-btn")
+        .addEventListener(
+            "click",
+            fetchAllModels
+        );
+
+    $("chat-input")
+        .addEventListener(
+            "keydown",
+            event=>{
+
+                if(
+                    event.key==="Enter"&&
+                    event.ctrlKey
+                ){
+
+                    event.preventDefault();
+
+                    sendChat();
+                }
+            }
+        );
+
+
+    /* CUSTOM */
+
+    $("chat-model")
+        .addEventListener(
+            "change",
+            ()=>{
+                toggleCustom(
+                    "chat-model",
+                    "chat-custom"
+                );
+            }
+        );
+
+    $("img-model")
+        .addEventListener(
+            "change",
+            ()=>{
+                toggleCustom(
+                    "img-model",
+                    "img-custom"
+                );
+            }
+        );
+
+    $("vid-model")
+        .addEventListener(
+            "change",
+            ()=>{
+                toggleCustom(
+                    "vid-model",
+                    "vid-custom"
+                );
+            }
+        );
+
+    $("tts-model")
+        .addEventListener(
+            "change",
+            ()=>{
+                toggleCustom(
+                    "tts-model",
+                    "tts-custom"
+                );
+            }
+        );
+
+    $("story-model")
+        .addEventListener(
+            "change",
+            ()=>{
+                toggleCustom(
+                    "story-model",
+                    "story-custom-model"
+                );
+            }
+        );
+
+
+    /* GENERATION */
+
+    $("img-btn")
+        .addEventListener(
+            "click",
+            createImage
+        );
+
+    $("vid-btn")
+        .addEventListener(
+            "click",
+            createVideo
+        );
+
+    $("tts-btn")
+        .addEventListener(
+            "click",
+            createAudio
+        );
+
+    $("story-btn")
+        .addEventListener(
+            "click",
+            createStory
+        );
+
+
+    /* GALLERY */
+
+    $("clear-gallery-btn")
+        .addEventListener(
+            "click",
+            clearGallery
+        );
+
+
+    /* NAVIGATION */
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(button=>{
+
+            button.addEventListener(
+                "click",
+                ()=>{
+                    openView(
+                        button.dataset.view,
+                        button
+                    );
+                }
+            );
+
+        });
+
+
+    /* VIDEO CATALOG */
+
+    populateVideoModels();
+
+
+    /* PUTER READY CHECK */
+
+    if(isPuterReady()){
+
+        updateAuthUI();
+
+    }else{
+
+        showStatus(
+            "جاري تحميل Puter.js...",
+            "info"
+        );
+
+        let attempts=0;
+
+        const timer=
+            setInterval(
+                async()=>{
+
+                    attempts++;
+
+                    if(isPuterReady()){
+
+                        clearInterval(timer);
+
+                        await updateAuthUI();
+
+                        return;
+                    }
+
+                    if(attempts>=30){
+
+                        clearInterval(timer);
+
+                        showStatus(
+                            "تعذر تحميل Puter.js. تحقق من اتصال الإنترنت.",
+                            "error"
+                        );
+                    }
+
+                },
+                300
+            );
+    }
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+if(
+    document.readyState==="loading"
+){
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initUI
+    );
+
+}else{
+
+    initUI();
+}
+
+</script>
+
 </body>
 </html>
